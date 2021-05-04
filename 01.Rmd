@@ -1,0 +1,27 @@
+# Exploratory Data Analysis
+
+**Learning objectives:**
+
+- TBD
+
+## SLIDE 2
+
+ADD SLIDE CONTENTS
+
+## SLIDE 3
+
+MORE SLIDE CONTENTS
+
+## Meeting Videos
+
+### Cohort 1
+
+`r knitr::include_url("https://www.youtube.com/embed/URL")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+CHAT LOG
+```
+</details>
