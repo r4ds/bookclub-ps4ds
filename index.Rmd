@@ -13,7 +13,7 @@ description: "This is the product of the R4DS Online Learning Community's Practi
 
 # Welcome {-}
 
-This is a companion for the book [Practical Statistics for Data Scientists](https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/) by Peter Bruce, Andrew Bruce, and Peter Gedeck.
+This is a companion for the book [Practical Statistics for Data Scientists](https://www.oreilly.com/library/view/practical-statistics-for/9781492072935/) by Peter Bruce, Andrew Bruce, and Peter Gedeck.
 This companion is available at [r4ds.io/ps4ds](https://r4ds.io/ps4ds).
 
 This website is being developed by the [R4DS Online Learning Community](https://rfordatasci.com). Follow along, and [join the community](https://r4ds.io/join) to participate.
