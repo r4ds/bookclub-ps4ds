@@ -2,7 +2,11 @@ Package: ps4ds
 Title: Practical Statistics for Data Scientists Book Club
 Version: 0.0.0.9000
 Authors@R: c(
-  person("R4DS Online Learning Community", role = c("aut", "cre", "cph"))
+  person(
+    "R4DS Online Learning Community",
+    email = "rfordatasci@gmail.com",
+    role = c("aut", "cre", "cph")
+  )
   )
 URL: https://r4ds.github.io/bookclub-ps4ds, https://github.com/r4ds/bookclub-ps4ds
 Depends:
