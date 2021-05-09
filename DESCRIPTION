@@ -13,11 +13,24 @@ Depends:
     R (>= 3.1.0)
 Imports: 
     bookdown,
+    ca,
+    corrplot,
     details,
+    DMwR2,
+    ellipse,
     emo,
+    FNN,
+    gmodels,
     here,
     kableExtra,
+    klaR,
+    lmPerm,
+    matrixStats,
+    mclust,
+    pwr,
     remotes,
-    rmarkdown
+    rmarkdown,
+    vioplot,
+    xgboost
 Remotes: 
     hadley/emo
