@@ -1,6 +1,6 @@
 # R4DS Practical Statistics for Data Scientists Book Club
 
-Welcome to the R4DS Practical Statiscs for Data Scientists Book Club!
+Welcome to the R4DS Practical Statistics for Data Scientists Book Club!
 
 We are working together to read [_Practical Statistics for Data Scientists_](https://www.oreilly.com/library/view/practical-statistics-for/9781492072935/) by Peter Bruce, Andrew Bruce, and Peter Gedeck (O'Reilly, copyright 2020, 978-1-492-07294-2).
 Join the #book_club-practical_stats_for_ds channel on the [R4DS Slack](https://r4ds.io/join) to participate.
