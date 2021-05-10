@@ -2,7 +2,12 @@
 
 **Learning objectives:**
 
-- TBD
+- something something categories of data
+- something something distributions of numerical data
+  - something something estimates of central location
+  - something something estimates of variability
+- something something categorical data
+- something something multiple variables
 
 ## SLIDE 2
 
