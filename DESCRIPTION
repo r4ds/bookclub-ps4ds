@@ -30,6 +30,7 @@ Imports:
     pwr,
     remotes,
     rmarkdown,
+    tidyverse,
     vioplot,
     xgboost
 Remotes: 
