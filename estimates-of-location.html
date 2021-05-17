@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Pace | Practical Statistics for Data Scientists Book Club</title>
+  <title>1.2 Estimates of Location | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Pace | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="1.2 Estimates of Location | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Pace | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="1.2 Estimates of Location | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="st-edition-vs-2nd-edition.html"/>
-<link rel="next" href="exploratory-data-analysis.html"/>
+<link rel="prev" href="structured-data.html"/>
+<link rel="next" href="estimates-of-variability.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -220,23 +220,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pace" class="section level2 unnumbered">
-<h2>Pace</h2>
+<div id="estimates-of-location" class="section level2">
+<h2><span class="header-section-number">1.2</span> Estimates of Location</h2>
 <ul>
-<li>Chapters are long, but not always dense.</li>
-<li>We’ll <em>try</em> to cover 1 chapter/week, but…</li>
-<li>…It’s ok to split chapters when they feel like too much.</li>
+<li>Most basic = mean.</li>
 </ul>
-
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="estimates-of-location.html#cb2-1"></a>dataset &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb2-2"><a href="estimates-of-location.html#cb2-2"></a><span class="kw">mean</span>(dataset) <span class="co"># (3 + 4 + 1 + 2 + 10)/5 = 20/5</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<ul>
+<li>Trimming helps eliminate outliers</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="estimates-of-location.html#cb4-1"></a><span class="kw">mean</span>(dataset, <span class="dt">trim =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>) <span class="co"># (2 + 3 + 4)/3 = 9/3</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<ul>
+<li>Weight to:
+<ul>
+<li>Down-weight high-variability values.</li>
+<li>Up-weight under-represented values.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estimates-of-location.html#cb6-1"></a>weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb6-2"><a href="estimates-of-location.html#cb6-2"></a><span class="kw">weighted.mean</span>(dataset, weights) <span class="co"># (3 + 4 + 11 + 2 + 10)/15 = 30/15</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<ul>
+<li>Median: sort then choose middle value.</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="estimates-of-location.html#cb8-1"></a><span class="kw">median</span>(dataset) <span class="co"># 1, 2, (3), 4, 10</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<ul>
+<li>Weighted median: similar to weighted mean, but more complicated.</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="estimates-of-location.html#cb10-1"></a><span class="co"># Sort then weight then middle of weight. 1*11, 2*1, 3*1, 4*1, 10*1</span></span>
+<span id="cb10-2"><a href="estimates-of-location.html#cb10-2"></a>matrixStats<span class="op">::</span><span class="kw">weightedMedian</span>(dataset, weights)</span></code></pre></div>
+<pre><code>## [1] 1.333333</code></pre>
+<ul>
+<li>Technically it interpolates in-between values.</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="estimates-of-location.html#cb12-1"></a>matrixStats<span class="op">::</span><span class="kw">weightedMedian</span>(dataset, weights, <span class="dt">interpolate =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 1.333333</code></pre>
+<ul>
+<li>Can tell it not to interpolate to simplify.</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimates-of-location.html#cb14-1"></a>matrixStats<span class="op">::</span><span class="kw">weightedMedian</span>(dataset, weights, <span class="dt">interpolate =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="estimates-of-location.html#cb16-1"></a><span class="co"># Equivalent to repeating values weight times.</span></span>
+<span id="cb16-2"><a href="estimates-of-location.html#cb16-2"></a><span class="kw">median</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">11</span>), <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">10</span>))</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<ul>
+<li>Their sample code is available at <a href="https://github.com/gedeck/practical-statistics-for-data-scientists">github.com/gedeck/practical-statistics-for-data-scientists</a></li>
+</ul>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="st-edition-vs-2nd-edition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="structured-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estimates-of-variability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -268,7 +309,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/index.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/01.Rmd",
 "text": "Edit"
 },
 "history": {

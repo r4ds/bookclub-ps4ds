@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Pace | Practical Statistics for Data Scientists Book Club</title>
+  <title>1.3 Estimates of Variability | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Pace | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="1.3 Estimates of Variability | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Pace | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="1.3 Estimates of Variability | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="st-edition-vs-2nd-edition.html"/>
-<link rel="next" href="exploratory-data-analysis.html"/>
+<link rel="prev" href="estimates-of-location.html"/>
+<link rel="next" href="histograms-friends.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -220,23 +220,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pace" class="section level2 unnumbered">
-<h2>Pace</h2>
+<div id="estimates-of-variability" class="section level2">
+<h2><span class="header-section-number">1.3</span> Estimates of Variability</h2>
 <ul>
-<li>Chapters are long, but not always dense.</li>
-<li>We’ll <em>try</em> to cover 1 chapter/week, but…</li>
-<li>…It’s ok to split chapters when they feel like too much.</li>
+<li>Variability (aka dispersion) = are values clustered or spread out?</li>
 </ul>
-
+<div id="sd-friends" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> SD &amp; Friends</h3>
+<ul>
+<li>Variance = average of squared deviations, <span class="math inline">\(s^2 = \frac{\sum_{i=1}^{n}{(x_{1}-\bar{x})^2}}{n-1}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="estimates-of-variability.html#cb18-1"></a>s_squared &lt;-<span class="st"> </span><span class="kw">var</span>(dataset)</span>
+<span id="cb18-2"><a href="estimates-of-variability.html#cb18-2"></a>s_squared</span></code></pre></div>
+<pre><code>## [1] 12.5</code></pre>
+<ul>
+<li>Standard deviation = square root of variance, <span class="math inline">\(s = \sqrt{variance}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="estimates-of-variability.html#cb20-1"></a>s &lt;-<span class="st"> </span><span class="kw">sd</span>(dataset)</span>
+<span id="cb20-2"><a href="estimates-of-variability.html#cb20-2"></a>s</span></code></pre></div>
+<pre><code>## [1] 3.535534</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="estimates-of-variability.html#cb22-1"></a>s <span class="op">==</span><span class="st"> </span><span class="kw">sqrt</span>(s_squared)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<ul>
+<li>Median absolute deviation from the median (MAD) is robust to outliers.</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="estimates-of-variability.html#cb24-1"></a><span class="kw">mad</span>(dataset)</span></code></pre></div>
+<pre><code>## [1] 1.4826</code></pre>
+<p>Wait, why did that return the standard scale factor?</p>
+<ul>
+<li><code>dataset</code> is <code>c(1, 2, 3, 4, 10)</code></li>
+<li>The difference between any 2 values is <code>1</code> (except the outlier)</li>
+<li><code>1 * 1.4826 = 1.4826</code></li>
+</ul>
 </div>
-<!-- </div> -->
+<div id="percentiles-friends" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Percentiles &amp; Friends</h3>
+<ul>
+<li>Percentiles = quantiles, <span class="math inline">\(P\%\)</span> of values are <span class="math inline">\(&lt;= x\)</span></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="estimates-of-variability.html#cb26-1"></a>x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb26-2"><a href="estimates-of-variability.html#cb26-2"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">20</span>)</span>
+<span id="cb26-3"><a href="estimates-of-variability.html#cb26-3"></a><span class="kw">quantile</span>(x, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
+<pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
+##   1.0  10.0  19.0  29.1  37.2  51.0  58.8  69.0  78.2  87.0 100.0</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="estimates-of-variability.html#cb28-1"></a><span class="kw">quantile</span>(y, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
+<pre><code>##         0%        10%        20%        30%        40%        50%        60% 
+##  -3.166691  24.188059  36.258159  44.472727  49.181259  54.851565  59.157381 
+##        70%        80%        90%       100% 
+##  63.589100  67.240193  76.555766 111.670856</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="estimates-of-variability.html#cb30-1"></a><span class="kw">quantile</span>(x) <span class="co"># quartile</span></span></code></pre></div>
+<pre><code>##     0%    25%    50%    75%   100% 
+##   1.00  23.75  51.00  75.25 100.00</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="estimates-of-variability.html#cb32-1"></a><span class="kw">IQR</span>(x) <span class="co"># They introduce this later but I like it here.</span></span></code></pre></div>
+<pre><code>## [1] 51.5</code></pre>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="st-edition-vs-2nd-edition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="estimates-of-location.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="histograms-friends.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -268,7 +313,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/index.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/01.Rmd",
 "text": "Edit"
 },
 "history": {

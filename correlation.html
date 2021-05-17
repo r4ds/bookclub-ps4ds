@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Pace | Practical Statistics for Data Scientists Book Club</title>
+  <title>1.6 Correlation | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Pace | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="1.6 Correlation | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Pace | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="1.6 Correlation | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="st-edition-vs-2nd-edition.html"/>
-<link rel="next" href="exploratory-data-analysis.html"/>
+<link rel="prev" href="visualizing-categorical-data.html"/>
+<link rel="next" href="d-distributions.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -220,23 +220,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pace" class="section level2 unnumbered">
-<h2>Pace</h2>
-<ul>
-<li>Chapters are long, but not always dense.</li>
-<li>We’ll <em>try</em> to cover 1 chapter/week, but…</li>
-<li>…It’s ok to split chapters when they feel like too much.</li>
-</ul>
-
+<div id="correlation" class="section level2">
+<h2><span class="header-section-number">1.6</span> Correlation</h2>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="correlation.html#cb38-1"></a><span class="kw">library</span>(corrplot)</span></code></pre></div>
+<pre><code>## corrplot 0.88 loaded</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="correlation.html#cb40-1"></a><span class="kw">library</span>(dplyr, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="correlation.html#cb44-1"></a>sp500_px &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/sp500_data.csv.gz&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-2"><a href="correlation.html#cb44-2"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span>
+<span id="cb44-3"><a href="correlation.html#cb44-3"></a>sp500_sym &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/sp500_sectors.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-4"><a href="correlation.html#cb44-4"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span>
+<span id="cb44-5"><a href="correlation.html#cb44-5"></a>etfs &lt;-<span class="st"> </span>sp500_px <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-6"><a href="correlation.html#cb44-6"></a><span class="st">  </span><span class="kw">filter</span>(X <span class="op">&gt;</span><span class="st"> &quot;2012-07-01&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-7"><a href="correlation.html#cb44-7"></a><span class="st">  </span><span class="kw">select</span>(</span>
+<span id="cb44-8"><a href="correlation.html#cb44-8"></a>    <span class="kw">any_of</span>(</span>
+<span id="cb44-9"><a href="correlation.html#cb44-9"></a>      sp500_sym <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-10"><a href="correlation.html#cb44-10"></a><span class="st">        </span><span class="kw">filter</span>(sector <span class="op">==</span><span class="st"> &quot;etf&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-11"><a href="correlation.html#cb44-11"></a><span class="st">        </span><span class="kw">pull</span>(symbol)</span>
+<span id="cb44-12"><a href="correlation.html#cb44-12"></a>    )</span>
+<span id="cb44-13"><a href="correlation.html#cb44-13"></a>  )</span>
+<span id="cb44-14"><a href="correlation.html#cb44-14"></a></span>
+<span id="cb44-15"><a href="correlation.html#cb44-15"></a><span class="kw">corrplot</span>(<span class="kw">cor</span>(etfs), <span class="dt">method =</span> <span class="st">&quot;ellipse&quot;</span>)</span></code></pre></div>
+<p><img src="bookclub-ps4ds_files/figure-html/correlation-1.png" width="672" /></p>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="st-edition-vs-2nd-edition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="visualizing-categorical-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="d-distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -268,7 +288,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/index.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/01.Rmd",
 "text": "Edit"
 },
 "history": {
