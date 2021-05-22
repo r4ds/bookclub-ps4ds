@@ -14,7 +14,7 @@ If you would like to present, please add your name next to a chapter using the [
 
 - 2021-05-10: Introduction - Jon Harmon
 - **2021-05-17: Chapter 1: Exploratory Data Analysis - Jon Harmon**
-- 2021-05-24: Chapter 2: Data and Sampling Distributions - PRESENTER(s) TBD
+- **2021-05-24: Chapter 2: Data and Sampling Distributions - Jonathan Bratt**
 - 2021-05-31: Chapter 3: Statistical Experiments and Significance Testing - PRESENTER(s) TBD
 - 2021-06-07: Chapter 4: Regression and Prediction - PRESENTER(s) TBD
 - 2021-06-14: Chapter 5: Classification - PRESENTER(s) TBD
