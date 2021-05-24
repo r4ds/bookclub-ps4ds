@@ -13,13 +13,14 @@ If you would like to present, please add your name next to a chapter using the [
 *Cohort 1: (starts 2021-05-10) - Mondays, 10:00am EST/EDT*
 
 - 2021-05-10: Introduction - Jon Harmon
-- **2021-05-17: Chapter 1: Exploratory Data Analysis - Jon Harmon**
-- **2021-05-24: Chapter 2: Data and Sampling Distributions - Jonathan Bratt**
-- 2021-05-31: Chapter 3: Statistical Experiments and Significance Testing - PRESENTER(s) TBD
-- 2021-06-07: Chapter 4: Regression and Prediction - PRESENTER(s) TBD
-- 2021-06-14: Chapter 5: Classification - PRESENTER(s) TBD
-- 2021-06-21: Chapter 6: Statistical Machine Learning - PRESENTER(s) TBD
-- 2021-06-28: Chapter 7: Unsupervised Learning - PRESENTER(s) TBD
+- 2021-05-17: Chapter 1: Exploratory Data Analysis - Jon Harmon
+- 2021-05-24: Chapter 2: Data and Sampling Distributions - Jonathan Bratt
+- **2021-06-07: Chapter 3, part 1: Statistical Experiments and Significance Testing - PRESENTER(s) TBD**
+- 2021-06-14: Chapter 3, part 2: Statistical Experiments and Significance Testing - Morgan Grovenburg
+- 2021-06-21: Chapter 4: Regression and Prediction - PRESENTER(s) TBD
+- 2021-06-28: Chapter 5: Classification - PRESENTER(s) TBD
+- 2021-07-12: Chapter 6: Statistical Machine Learning - PRESENTER(s) TBD
+- 2021-07-19: Chapter 7: Unsupervised Learning - PRESENTER(s) TBD
 
 <hr>
 
