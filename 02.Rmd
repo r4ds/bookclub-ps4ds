@@ -20,16 +20,18 @@
   - the space of outcomes from rolling a pair of dice
   - all possible offspring from a mating pair of fruit flies
   - the collection of physical *microstates* consistent with a given *macrostate*
+  - etc.
  
 ## Populations {.unnumbered}
 
-In this context, a population is represented as a *distribution* over one or more 
+A *population* is represented as a *distribution* over one or more 
 variables.
 
 - voting populations are a distribution over the **candidates**
 - tree populations are a distribution over the **species** of tree, the **diameter** of 
 the trunk, the **number** of leaves, the **thickness** of the bark, etc.
 - dice outcomes are a distribution over the **number rolled**
+- etc.
 
 
 ## Population Statistics {.unnumbered}
@@ -41,6 +43,7 @@ The things we care about are *statistics* that can be calculated from the distri
 branchings^[I am sure that nobody cares about this metric. The point is that
 a "statistic" can be *any* function of the distribution.]
 - the mean and standard deviation of the number rolled
+- etc.
 
 
 
@@ -49,11 +52,11 @@ a "statistic" can be *any* function of the distribution.]
 We almost never have full access to the population distribution that we care about,
 so we have to settle for a *sample*.
 
- - drawn at random from the population
  - consists of some number *n* of "individuals" from the population
    - poll 2000 likely voters
    - randomly select 50 trees from the forest to measure
    - roll the dice 100 times
+ - drawn at **random** from the population
  - represented by a distribution over the same variables as the population
    
 Whatever statistic we wanted to calculate for the population, we instead
