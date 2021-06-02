@@ -1,8 +1,16 @@
 # Statistical Experiments and Significance Testing
 
+Main point: **resampling** is the best way to test the significance of a statistical experiment.
+
 **Learning objectives:**
 
-- TBD
+- Design **A/B tests**.
+- Use **hypothesis tests** to understand the results of a statistical experiment.
+- Perform **resampling procedures** to test the significance of statistical experiments.
+- Explain the proper uses (and abuses!) of **p-values**.
+- Compare and contrast the various **traditional tests of significance**.
+- Explain the advantages of **multi-armed bandit** tests over traditional A/B tests.
+- Calculate the **statistical power** for a statistical experiment.
 
 ## SLIDE 2
 
