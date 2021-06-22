@@ -2,7 +2,14 @@
 
 **Learning objectives:**
 
-- TBD
+- Perform **linear regressions** with a single independent variable.
+- Perform linear regressions with **multiple** independent variables.
+- Perform regressions with one or more **categorical** independent variables.
+- Perform **nonlinear** generalizations of regression.
+- Compare and contrast the use of regression for **prediction vs. explanation**.
+- **Cautiously interpret** the results of a multivariable linear regression.
+- **Assess the goodness** of a regression model.
+
 
 ## SLIDE 2
 
