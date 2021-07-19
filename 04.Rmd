@@ -137,7 +137,7 @@ neighborhood_groups <- dat %>%
             cnt = n()) %>% 
   dplyr::arrange(med_resid) %>% 
   dplyr::mutate(cum_cnt = cumsum(cnt),
-        neighborhoodgroup = as_factor(ntile(cum_cnt, 5)))
+        neighborhoodgroup = forcats::as_factor(ntile(cum_cnt, 5)))
 
 dat <- dat %>% 
   left_join(dplyr::select(neighborhood_groups, Neighborhood, neighborhoodgroup),
