@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club</title>
+  <title>4.7 Generalized Additive Models | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="4.7 Generalized Additive Models | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="4.7 Generalized Additive Models | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="statistical-experiments-and-significance-testing.html"/>
-<link rel="next" href="slide-3.html"/>
+<link rel="prev" href="non-linear-regression.html"/>
+<link rel="next" href="meeting-videos-3.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -258,17 +258,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-2" class="section level2">
-<h2><span class="header-section-number">3.1</span> SLIDE 2</h2>
-<p>ADD SLIDE CONTENTS</p>
+<div id="generalized-additive-models" class="section level2">
+<h2><span class="header-section-number">4.7</span> Generalized Additive Models</h2>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="generalized-additive-models.html#cb99-1"></a>lm_gam &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(total_sf) <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr, </span>
+<span id="cb99-2"><a href="generalized-additive-models.html#cb99-2"></a>                    <span class="dt">data =</span> dat)</span>
+<span id="cb99-3"><a href="generalized-additive-models.html#cb99-3"></a>gam &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(lm_gam, <span class="st">&quot;total_sf&quot;</span>)</span>
+<span id="cb99-4"><a href="generalized-additive-models.html#cb99-4"></a><span class="kw">plot</span>(gam, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="bookclub-ps4ds_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="statistical-experiments-and-significance-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="slide-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="non-linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meeting-videos-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -300,7 +305,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/03.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/04.Rmd",
 "text": "Edit"
 },
 "history": {

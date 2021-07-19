@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club</title>
+  <title>4.1 Weighted Regression | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="4.1 Weighted Regression | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="4.1 Weighted Regression | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="statistical-experiments-and-significance-testing.html"/>
-<link rel="next" href="slide-3.html"/>
+<link rel="prev" href="regression-and-prediction.html"/>
+<link rel="next" href="prediction-using-regression.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -258,17 +258,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-2" class="section level2">
-<h2><span class="header-section-number">3.1</span> SLIDE 2</h2>
-<p>ADD SLIDE CONTENTS</p>
+<div id="weighted-regression" class="section level2">
+<h2><span class="header-section-number">4.1</span> Weighted Regression</h2>
+<p>Used to give certain records (variables, features) more or less weighting when fitting the regression model. To show this, I will use the ames housing data from the <code>{modeldata}</code> package from <code>tidymodels</code> and prioritize sale prices of houses sold more recently than those sold earlier in these data.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="weighted-regression.html#cb60-1"></a>dat &lt;-<span class="st"> </span>ames <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb60-2"><a href="weighted-regression.html#cb60-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Lot_Area, Neighborhood, Year_Sold, First_Flr_SF, Second_Flr_SF,</span>
+<span id="cb60-3"><a href="weighted-regression.html#cb60-3"></a>         Bsmt_Full_Bath, Full_Bath, Half_Bath, Bsmt_Half_Bath, Sale_Price,</span>
+<span id="cb60-4"><a href="weighted-regression.html#cb60-4"></a>         Bedroom_AbvGr, Central_Air, Bldg_Type) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb60-5"><a href="weighted-regression.html#cb60-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">weight =</span> Year_Sold <span class="op">-</span><span class="st"> </span><span class="dv">2006</span>,</span>
+<span id="cb60-6"><a href="weighted-regression.html#cb60-6"></a>         <span class="dt">total_sf =</span> First_Flr_SF <span class="op">+</span><span class="st"> </span>Second_Flr_SF,</span>
+<span id="cb60-7"><a href="weighted-regression.html#cb60-7"></a>         <span class="dt">bath =</span> Bsmt_Full_Bath <span class="op">+</span><span class="st"> </span>Full_Bath <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>Half_Bath <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>Bsmt_Half_Bath)</span>
+<span id="cb60-8"><a href="weighted-regression.html#cb60-8"></a></span>
+<span id="cb60-9"><a href="weighted-regression.html#cb60-9"></a></span>
+<span id="cb60-10"><a href="weighted-regression.html#cb60-10"></a>house_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>total_sf <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>Central_Air,</span>
+<span id="cb60-11"><a href="weighted-regression.html#cb60-11"></a>               <span class="dt">data =</span> dat)</span>
+<span id="cb60-12"><a href="weighted-regression.html#cb60-12"></a>house_wt &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>total_sf <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>Central_Air,</span>
+<span id="cb60-13"><a href="weighted-regression.html#cb60-13"></a>               <span class="dt">data =</span> dat, <span class="dt">weight =</span> weight)</span>
+<span id="cb60-14"><a href="weighted-regression.html#cb60-14"></a><span class="kw">round</span>(<span class="kw">cbind</span>(<span class="dt">house_lm =</span> house_lm<span class="op">$</span>coefficients,</span>
+<span id="cb60-15"><a href="weighted-regression.html#cb60-15"></a>                <span class="dt">house_wt =</span> house_wt<span class="op">$</span>coefficients), <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##                 house_lm   house_wt
+## (Intercept)    -4804.696  -3943.203
+## total_sf         104.742    104.705
+## Lot_Area           0.605      0.673
+## bath           25411.278  24754.042
+## Bedroom_AbvGr -25438.440 -27218.685
+## Central_AirY   41924.976  45938.683</code></pre>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="statistical-experiments-and-significance-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="slide-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="regression-and-prediction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prediction-using-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -300,7 +322,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/03.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/04.Rmd",
 "text": "Edit"
 },
 "history": {

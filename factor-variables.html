@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club</title>
+  <title>4.3 Factor Variables | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="4.3 Factor Variables | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.1 SLIDE 2 | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="4.3 Factor Variables | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="statistical-experiments-and-significance-testing.html"/>
-<link rel="next" href="slide-3.html"/>
+<link rel="prev" href="prediction-using-regression.html"/>
+<link rel="next" href="interpreting-regression-equations.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -258,17 +258,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="slide-2" class="section level2">
-<h2><span class="header-section-number">3.1</span> SLIDE 2</h2>
-<p>ADD SLIDE CONTENTS</p>
+<div id="factor-variables" class="section level2">
+<h2><span class="header-section-number">4.3</span> Factor Variables</h2>
+<p>We can use the building type as a factor variable to help with our predictions. The building type variable has five options:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="factor-variables.html#cb64-1"></a>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(Bldg_Type)</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   Bldg_Type     n
+##   &lt;fct&gt;     &lt;int&gt;
+## 1 OneFam     2425
+## 2 TwoFmCon     62
+## 3 Duplex      109
+## 4 Twnhs       101
+## 5 TwnhsE      233</code></pre>
+<div id="dummy-variables" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Dummy Variables</h3>
+<ul>
+<li>One Hot Encoding (KNN, Tree Models) vs P-1 representation (Regression)</li>
+</ul>
+<p>One hot encoding is when all factor levels are included in the model. <em>Adding in all P distinct levels along with the intercept term creates collinearity issues.</em></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="factor-variables.html#cb66-1"></a><span class="kw">model.matrix</span>(<span class="op">~</span>Bldg_Type <span class="dv">-1</span>, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##   Bldg_TypeOneFam Bldg_TypeTwoFmCon Bldg_TypeDuplex Bldg_TypeTwnhs
+## 1               1                 0               0              0
+##   Bldg_TypeTwnhsE
+## 1               0</code></pre>
+<ul>
+<li>P-1 encoding (Using all of the factor levels except the reference)</li>
+</ul>
+<p>R uses the first factor as the reference level and we should interpret the remaining levels relative to this factor.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="factor-variables.html#cb68-1"></a><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>total_sf <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>Central_Air <span class="op">+</span><span class="st"> </span></span>
+<span id="cb68-2"><a href="factor-variables.html#cb68-2"></a><span class="st">     </span>Bldg_Type, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-3"><a href="factor-variables.html#cb68-3"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 10 x 5
+##    term                estimate std.error statistic   p.value
+##    &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 (Intercept)         1361.     4666.        0.292 7.71e-  1
+##  2 total_sf             100.        2.51     39.9   1.19e-278
+##  3 Lot_Area               0.430     0.118     3.65  2.68e-  4
+##  4 bath               28825.     1393.       20.7   7.17e- 89
+##  5 Bedroom_AbvGr     -22921.     1325.      -17.3   6.49e- 64
+##  6 Central_AirY       32779.     3661.        8.95  6.04e- 19
+##  7 Bldg_TypeTwoFmCon -38089.     6151.       -6.19  6.77e- 10
+##  8 Bldg_TypeDuplex   -47689.     4755.      -10.0   2.71e- 23
+##  9 Bldg_TypeTwnhs    -35466.     4856.       -7.30  3.60e- 13
+## 10 Bldg_TypeTwnhsE    -4281.     3489.       -1.23  2.20e-  1</code></pre>
+</div>
+<div id="ordered-factor-variables" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Ordered Factor Variables</h3>
+<p>Treating ordered factors as a numerical variable preserves the information contained in the ordering that would be lost if we simply used a factor conversion (Likert scales, Loan grades, Crime rate, etc).</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="statistical-experiments-and-significance-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="slide-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="prediction-using-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interpreting-regression-equations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -300,7 +345,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/03.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/04.Rmd",
 "text": "Edit"
 },
 "history": {
