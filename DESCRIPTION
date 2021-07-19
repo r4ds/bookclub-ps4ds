@@ -26,12 +26,21 @@ Imports:
     klaR,
     lmPerm,
     matrixStats,
+    modeldata,
     mclust,
     pwr,
     remotes,
     rmarkdown,
     tidyverse,
     vioplot,
-    xgboost
+    xgboost,
+    performance,
+    ggeffects,
+    splines,
+    mgcv,
+    correlation,
+    ggraph,
+    see,
+    broom
 Remotes: 
     hadley/emo
