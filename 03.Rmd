@@ -24,12 +24,12 @@ MORE SLIDE CONTENTS
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/TzbrAJfPLKI")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-CHAT LOG
+no chat log
 ```
 </details>

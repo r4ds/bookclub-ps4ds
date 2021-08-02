@@ -2,19 +2,85 @@
 
 **Learning objectives:**
 
-- TBD
+- Describe the **general approach to binary classification.**
+- Use **naive Bayes** to predict a binary categorical variable from categorical predictors.
+- Use **linear discriminant analysis (LDA)** to predict a binary categorical variable from normally distributed or categorical predictors.
+- Use **logistic regression** to predict a binary categorical variable from predictors.
+- **Evaluate** classification models.
+- Deal with **imbalanced data.**
 
-## SLIDE 2
+## Types of Models
 
-ADD SLIDE CONTENTS
+(we discussed these last week, but we don't have slides yet)
 
-## SLIDE 3
+## Evaluating Classification Models
 
-MORE SLIDE CONTENTS
+- Accuracy: $\frac{TP+TN}{total}$
+  - `yardstick::accuracy()`
+- Confusion matrix: columns = predictions, rows = actual, diagonal = correctly classified
+  - `yardstick::conf_mat()`
+- Recall (aka Sensitivity): $\frac{TP}{TP+FN}$
+  - "Of the true things, how many did the model 'remember'?"
+  - `yardstick::recall()`
+- Specificity: $\frac{TN}{TN+FP}$
+  - "How good is the model at picking out bad things?"
+  - `yardstick::spec()` or `yardstick::specificity()`
+- Precision: $\frac{TP}{TP+FP}$
+  - "What portion of the predicted true things are true?"
+  - `yardstick::precision()`
+
+## ROC Curves
+
+- Stands for "Receiver Operating Characteristics," but that's really just trivia.
+- The book has the *x-axis* backwards, which is bonkers.
+- `yardstick::roc_curve` constructs a tibble of data for the ROC curve, and can be autoplotted to generate the curve.
+
+```{r ROC-curve}
+library(yardstick)
+library(ggplot2)
+
+data(two_class_example)
+autoplot(roc_curve(two_class_example, truth, Class1))
+```
+
+- AUC (`yardstick::roc_auc()`) = area under the ROC curve.
+  - 1 = perfect, 0.5 = random chance
+
+## Lift
+
+```{r lift-curve}
+autoplot(lift_curve(two_class_example, truth, Class1))
+```
+
+## Imbalanced Data
+
+- Undersample (aka downsample): Use fewer of the prevalent class (throw away data).
+- Oversample (aka upsample): Bootstrap copies of the rare class.
+- Up weighting and down weighting can do the ~same thing.
+- Data generation (SMOTE) can be helpful to create cases similar to the rare class.
+
+## Cost-Based Classification
+
+- Rather than using straight-up accuracy or AUC, assign costs to false negatives and false positives, and classify based on cost.
+- Barely touched on in the book, but I spent most of my slide-making time trying to think out how/whether we can use this.
 
 ## Meeting Videos
 
-### Cohort 1
+### Cohort 1, part 1
+
+`r knitr::include_url("https://www.youtube.com/embed/4rBHx49v0Zo")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:24:56	Jon Harmon (jonthegeek):	To check out: StatQuest on YouTube. Josh Starmer?
+00:25:07	Morgan Grovenburg:	https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw
+00:35:09	shamsuddeen:	Thanks Jon
+```
+</details>
+
+### Cohort 1, part 2
 
 `r knitr::include_url("https://www.youtube.com/embed/URL")`
 

@@ -272,12 +272,53 @@ plot(gam, residuals = TRUE, residuals.line = TRUE)
 
 ### Cohort 1, Part 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/C0-KhwRufJw")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-CHAT LOG
+00:34:10	pavitra:	https://www.programmingr.com/animation-graphics-r/qq-plot/#:~:text=The%20qqplot%20function%20in%20R.%201%20x%20is,is%20the%20name%20of%20the%20Q%20Q%20plot.
+00:34:47	jiwan:	maybe the base R plot() function on an lm result? it plots a bunch of things (resid, qq, …)
+00:35:55	June Choe:	re: qq plots - there's an interesting paper (and an R package {qqvases}) on QQ plots that draws an analogy to filling a vase with water which intuitively clicked for me - https://repository.upenn.edu/cgi/viewcontent.cgi?article=1605&context=statistics_papers
+00:36:35	pavitra:	ooh..that looks good. Thanks June
+00:36:49	pavitra:	good catch, Jonathan
+00:37:08	Ryan S:	# to graph the residuals (from r4ds Ch25)
+library(modelr)
+library(tidyverse)
+library(gapminder)
+nz <- filter(gapminder, country == "New Zealand")
+nz_mod <- lm(lifeExp ~ year, data = nz)
+plot3 <- nz %>% 
+  add_residuals(nz_mod) %>% 
+  ggplot(aes(year, resid)) + 
+  geom_hline(yintercept = 0, colour = "white", size = 3) + 
+  geom_line() + 
+  ggtitle("Resid pattern")
+00:38:00	pavitra:	nice! Thank you Ryan. That's what I wanted to know
+00:40:02	pavitra:	apparently bathrooms are not very significant in this model
+00:40:04	pavitra:	that figures
+00:58:45	pavitra:	thanks morgan. this was a dense chapter
+00:58:54	June Choe:	thanks for presenting!
+00:58:59	priyanka gagneja:	thx Morgan 
+00:59:10	Stan Piotrowski:	Great presentation, Morgan!
+00:59:12	jiwan:	Thank you Morgan!
+00:59:17	shamsuddeen:	Thanks Morgan, great presentation
+00:59:18	Morgan Grovenburg:	Thank you all for your patience with me!
+01:03:04	Andy Farina:	Thank you Morgan, great presentation
+01:04:07	Andy Farina:	I am able to present if you would like a break
+01:04:39	shamsuddeen:	See yall
+```
+</details>
+
+### Cohort 1, Part 2
+
+`r knitr::include_url("https://www.youtube.com/embed/VdDqclH2Fio")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+no chat log
 ```
 </details>
