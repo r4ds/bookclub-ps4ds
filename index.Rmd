@@ -58,3 +58,28 @@ Here we'll attempt to document differences between 1e and 2e.
 - Chapters are long, but not always dense.
 - We'll _try_ to cover 1 chapter/week, but...
 - ...It's ok to split chapters when they feel like too much.
+
+## Meeting Videos
+
+### Cohort 1
+
+`r knitr::include_url("https://www.youtube.com/embed/yuFdAZvdyg8")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:12:31	Jon Harmon (jonthegeek):	r4ds.io/ps4ds
+00:14:47	Bryan Tegomoh:	2nd edition
+00:14:49	Scott Nestler:	I have a copy of each.
+00:14:50	Francisco Escobar:	1e
+00:17:26	Scott Nestler:	Sounds like a good plan to start with.
+00:18:28	Kaytee Flick:	I liked that part:D
+00:21:29	Jon Harmon (jonthegeek):	For those synching up later: "I liked that part" was about the Tukey stuff in chapter 1.
+00:32:34	Diego Ramírez González:	I am a neuroscience grad student in Mexico. I am here to study stats :)
+00:32:58	Kaytee Flick:	Yay neuroscience!
+00:34:49	Morgan Grovenburg:	https://github.com/r4ds/bookclub-ps4ds
+00:38:03	Kaytee Flick:	Can confirm that learning both simultaneously can break your brain....speaking from my current experience:P
+00:38:22	shamsuddeen:	@Kaytee..-;)
+```
+</details>

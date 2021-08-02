@@ -66,7 +66,21 @@ autoplot(lift_curve(two_class_example, truth, Class1))
 
 ## Meeting Videos
 
-### Cohort 1
+### Cohort 1, part 1
+
+`r knitr::include_url("https://www.youtube.com/embed/4rBHx49v0Zo")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+00:24:56	Jon Harmon (jonthegeek):	To check out: StatQuest on YouTube. Josh Starmer?
+00:25:07	Morgan Grovenburg:	https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw
+00:35:09	shamsuddeen:	Thanks Jon
+```
+</details>
+
+### Cohort 1, part 2
 
 `r knitr::include_url("https://www.youtube.com/embed/URL")`
 

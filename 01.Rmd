@@ -165,12 +165,73 @@ corrplot(cor(etfs), method = "ellipse")
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/l46pEMDzj4U")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-CHAT LOG
+00:04:49	Madeline Arnold (she/her):	Hello everyone! I’m eating breakfast so going to have my camera off for now :)
+00:15:08	Scott Nestler:	Effectively, the median is a trimmed mean that removes 50% of the lower and upper values in a data set.
+00:15:33	Morgan Grovenburg:	Haha!
+00:16:38	Scott Nestler:	Also, if you need a standard error (SE) calculation, you can't do that with a median, but you can with a trimmed mean, for both normal and non-normal data.
+00:17:56	Scott Nestler:	Actually, I mis-spoke.  You can calculate the SE of the median, but it is generally higher than for the mean (or trimmed mean).  So trimmed mean is a balance of resistance to outliers and providing a low SE.
+00:20:14	pavitra:	Scott, so is trimmed mean best practice, or median?
+00:21:33	Jone Aliri:	the trimmed mean it's less conservative than the median
+00:21:53	Jone Aliri:	what is best practice depends on the data
+00:22:10	Diego Ramírez González:	A trimmed mean is probably not a good idea if you don't have a lot of data points
+00:22:46	pavitra:	makes sense!
+00:24:24	Madeline Arnold (she/her):	For folks who’ve used trimmed mean (new to me!) do you often use the 10% percentile cutoff described in PS4DS or some other cutoff for outliers?
+00:27:04	Scott Nestler:	https://en.wikipedia.org/wiki/Median_absolute_deviation#Relation_to_standard_deviation
+00:29:10	pavitra:	there are no dumb questions
+00:33:37	Madeline Arnold (she/her):	In my experience in biology research, if spread of data is bigger it means I need a bigger n (need to have more samples to be confident about the estimated mean being accurate)
+00:33:53	Kaytee Flick:	Same Madeline...that's what I was thinking about
+00:35:18	shamsuddeen:	Thanks
+00:38:36	Diego Ramírez González:	if you increase the sample size the mean and the median (50th percentile) will be closer
+00:39:42	jonathan.bratt:	And maybe deciles rather than percentiles are easier to read for this example.
+00:45:48	Morgan Grovenburg:	<3 boxplots
+00:45:50	Scott Nestler:	I really like comparative box plots, when you are trying to look at the distribution of data for 2 or more categories.
+00:45:56	pavitra:	still cant see distribution in boxplots
+00:46:51	Diego Ramírez González:	the box is the 25th and 75th percentiles, the line in the middle of the box is the median, the whiskers are 1.5*IQR and the points outside are outliers
+00:47:10	Rahul:	This was very helpful to understand why 1.5 is used https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51
+00:47:18	Francisco Escobar:	1.58 gives ~95% confidence interval for the median https://ggplot2.tidyverse.org/reference/geom_boxplot.html
+00:47:38	Diego Ramírez González:	i like boxplot, but violin plots are better :)
+00:47:43	Diego Ramírez González:	boxplots*
+00:48:02	Anne Hoffrichter:	I like the combination of violin and boxplots ;)
+00:48:04	Kaytee Flick:	I was just going to ask how we feel about violin plots:P
+00:48:17	jiwan:	https://twitter.com/CedScherer/status/1387155336998670344/photo/1
+00:48:19	Diego Ramírez González:	yeah, violin + boxplot is even better
+00:49:41	pavitra:	the good ole' area under curve
+00:49:54	Diego Ramírez González:	this is my favorite gif :)
+https://twitter.com/danilobzdok/status/1341893126592593924
+00:50:46	Kaytee Flick:	That's epic
+00:50:50	Scott Nestler:	Ridgeline plots!
+00:50:51	Madeline Arnold (she/her):	@Diego love it
+00:51:06	pavitra:	is there something called "raindrop" plot or something?
+00:51:54	pavitra:	I really like raindrop plots
+00:51:58	Diego Ramírez González:	anything but dynamite plots
+00:53:31	Diego Ramírez González:	i agree, those two distributions don't even overlap, the dynamite plot is not so bad here
+00:53:33	pavitra:	Sorry to belabor this. However, why is MAD not as prevalent as SD? No rush to answer here - maybe we can discuss further in the slack channel
+00:54:59	Jone Aliri:	It's because MAD is calculated with absolute values
+00:55:06	pavitra:	Nassim Taleb loves MAD and says it is more accurate for skewed data
+00:55:56	pavitra:	Good point, Jone
+00:56:04	Scott Nestler:	Also, the absolute value function is non-smooth, which used to create all sorts of calculation issues.
+01:01:37	pavitra:	great presentation, Jon!
+01:02:41	priyanka gagneja:	Bi-modal you mean
+01:03:12	pavitra:	thanks a lot, y'all.Gotta go.
+01:03:35	Jone Aliri:	And the other problema is that teh distance could be different from 1 to 2 or from 3 to 4 in Likert
+01:04:55	Diego Ramírez González:	i guess it depends on the distribution of your data and what assumptions you are willing to make about the measurement
+01:05:59	Madeline Arnold (she/her):	I hope we learn more about this topic! Thanks for the question Sheila
+01:06:22	Kaytee Flick:	Congrats Scott!!!
+01:06:35	Jone Aliri:	In psychology we use a lot of scales with Likert... and a lot of times we add them...
+01:07:23	Scott Nestler:	A good way to remember not to use means on Likert scale data is to think: The average of Agree and Strongly Agree is not Agree-And-A-Half.
+01:07:30	Scott Nestler:	https://bookdown.org/Rmadillo/likert/summary.html
+01:07:53	Diego Ramírez González:	yeah, but for some of these instruments people will add the answers to get a total score
+01:08:13	Jim Gruman:	not sure if this adds anything, but there are domains where a geometric mean is more appropriate than the average
+01:08:29	Morgan Grovenburg:	I don't have a good answer, but I use the `HH` package to visualized likert scales https://xang1234.github.io/likert/
+01:09:06	Jim Gruman:	and in market research,   my company skips to valuing only the "top box scores"
+01:10:01	Jone Aliri:	Yes @Diego that's it, we get the total score which we can use like a continuos scale :)
+01:10:11	Jim Gruman:	thank you!!
+01:10:16	Andrew G. Farina:	Thanks Jon!
 ```
 </details>

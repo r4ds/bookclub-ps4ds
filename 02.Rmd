@@ -306,19 +306,51 @@ qqnorm(poisson_values); qqline(poisson_values, col = 2)
 ```
 
 
-
-
-
 ## Meeting Videos
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/w_UZIKzstnU")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-CHAT LOG
+00:09:49	shamsuddeen:	Hi everyone, good to see u all today
+00:10:36	Jon Harmon (jonthegeek):	Good morning (or whatever time it might be)!
+00:12:51	priyanka gagneja:	I see chap 2
+00:14:32	Jon Harmon (jonthegeek):	Did someone volunteer for Chapter 3? I'll bother people at the end if not but thought I'd let people mull it over before then :)
+00:16:48	Morgan Grovenburg:	Are we meeting on Memorial Day?
+00:17:31	Jon Harmon (jonthegeek):	Oh, hmm. We should skip. Thanks for noticing the timing! That also gives us more time to get caught up for chapter 3 :)
+00:22:40	Scott Nestler:	Minor quibble on something that was said. But I think it is important. I would say that a sample HAS a distribution (the sampling distribution), rather than IS a distribution.  Any particular sample we draw is one observation FROM the sampling distribution.
+00:23:12	Scott Nestler:	(technically a collection of individual observations)
+00:23:25	Diego Ramírez González:	When you do hypothesis testing you want to estimate something about a population, but you do it through a sample
+00:24:20	Scott Nestler:	If you have access to the population, and you measure things about each member, you are conducting a CENSUS.
+00:24:52	Kaytee Flick:	@Scott The book defines the sampling distribution as the distribution of some sample stat over many samples from the same population....vs data distribution which is the distribution of individual data points
+00:24:58	Diego Ramírez González:	Isn't a sampling distribution a distribution a point estimates?
+00:25:06	shamsuddeen:	@Scot great point
+00:25:14	Diego Ramírez González:	while a sample has a distribution of raw data
+00:26:44	priyanka gagneja:	@diego .. I would say that's an ideal scenario .. if your sample is BEST ( I think that's the acronym or something) .. where your sample is representative of the population.. it would have same distribution as population but that may not always be true 
+00:28:04	shamsuddeen:	Can we have bias-free data?
+00:28:48	priyanka gagneja:	oh and a suggestion/ correction Jonathan.. from my old stats class .. population has (p)arameters while sample has (s)tatistic
+00:32:59	Scott Nestler:	Priyanka is correct that populations have parameters (that describe the distribution for named families), BUT they do also have "population statistics" which can sometimes (but rarely) be calculated.
+00:36:14	Scott Nestler:	Regarding Shamsuddeen's question … it really isn't data that has a bias (or not), but rather the statistic(s) we are calculating with it.  Some statistics are biased and some are not. That depends on whether the expected value of the statistic is equal to the population parameter being estimated by it (or not).
+00:36:54	priyanka gagneja:	+1 ..Scott 's ans to shamshudeen s ques
+00:38:53	shamsuddeen:	Thanks Scott.
+00:39:56	pavitra:	amazing discussion Jonathan. Really eye-opening when you get into the weeds with summary stats
+00:42:03	pavitra:	even if sample size is small, sampling enough number of times eventually gets you a normally distributed summary stat?
+00:42:41	jiwan:	I think the book covers this in the bootstrap section
+00:43:13	Jon Harmon (jonthegeek):	He's building up to the bootstrap 😄
+00:45:15	Diego Ramírez González:	Showing the standard error is a bit misleading anyway, its always going to be smaller than the standard deviation
+00:48:01	Kaytee Flick:	.....I think that's exactly why its used.
+00:52:31	Rahul:	1.272
+00:59:22	Jon Harmon (jonthegeek):	If you have 1e: The Chi-Square Distribution and F-Distribution subsections are new... but they talk about those distributions in later chapters so you should still be fine/able to keep up when we talk about them again.
+01:00:21	pavitra:	dang, this chapter is everything
+01:03:13	Scott Nestler:	Regarding skill vs. luck in sports (briefly mentioned in the chapter) -- the short video here is useful:  https://stakehunters.com/betting-guide/the-balance-of-luck-and-skills-in-top-sports--choose-on-what-do-you-bet
+01:04:00	jiwan:	ch,3 was fairly long
+01:04:32	Morgan Grovenburg:	I'd like to split the chapters in half
+01:04:54	Morgan Grovenburg:	I can't present that week
+01:05:29	Diego Ramírez González:	maybe we should combine chapter 3 and 4, they are basically the same information
+01:07:26	Diego Ramírez González:	bye
 ```
 </details>
