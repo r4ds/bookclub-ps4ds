@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Sample code | Practical Statistics for Data Scientists Book Club</title>
+  <title>5.1 Types of Models | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Sample code | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="5.1 Types of Models | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sample code | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="5.1 Types of Models | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="book-club-meetings.html"/>
-<link rel="next" href="st-edition-vs-2nd-edition.html"/>
+<link rel="prev" href="classification.html"/>
+<link rel="next" href="evaluating-classification-models.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -267,27 +267,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="sample-code" class="section level2 unnumbered">
-<h2>Sample code</h2>
-<p>Sample code is available at <a href="https://github.com/gedeck/practical-statistics-for-data-scientists">github.com/gedeck/practical-statistics-for-data-scientists</a></p>
-<p>You can install all packages used by these notes and recommended by the book authors<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="sample-code.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb1-2"><a href="sample-code.html#cb1-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;r4ds/bookclub-ps4ds&quot;</span>)</span>
-<span id="cb1-3"><a href="sample-code.html#cb1-3"></a><span class="kw">remove.packages</span>(<span class="st">&quot;ps4ds&quot;</span>) <span class="co"># This isn&#39;t really a package.</span></span></code></pre></div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>Chapter 5 uses {DMwR}, which is currently unavailable on CRAN. We’ll confirm when we get there, but I’m guessing {DMwR2} will work instead.<a href="sample-code.html#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
+<div id="types-of-models" class="section level2">
+<h2><span class="header-section-number">5.1</span> Types of Models</h2>
+<p>(we discussed these last week, but we don’t have slides yet)</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="book-club-meetings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="st-edition-vs-2nd-edition.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="classification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="evaluating-classification-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -319,7 +309,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/index.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/05.Rmd",
 "text": "Edit"
 },
 "history": {

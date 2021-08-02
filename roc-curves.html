@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Sample code | Practical Statistics for Data Scientists Book Club</title>
+  <title>5.3 ROC Curves | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Sample code | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="5.3 ROC Curves | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sample code | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="5.3 ROC Curves | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="book-club-meetings.html"/>
-<link rel="next" href="st-edition-vs-2nd-edition.html"/>
+<link rel="prev" href="evaluating-classification-models.html"/>
+<link rel="next" href="lift.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -267,27 +267,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="sample-code" class="section level2 unnumbered">
-<h2>Sample code</h2>
-<p>Sample code is available at <a href="https://github.com/gedeck/practical-statistics-for-data-scientists">github.com/gedeck/practical-statistics-for-data-scientists</a></p>
-<p>You can install all packages used by these notes and recommended by the book authors<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="sample-code.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb1-2"><a href="sample-code.html#cb1-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;r4ds/bookclub-ps4ds&quot;</span>)</span>
-<span id="cb1-3"><a href="sample-code.html#cb1-3"></a><span class="kw">remove.packages</span>(<span class="st">&quot;ps4ds&quot;</span>) <span class="co"># This isn&#39;t really a package.</span></span></code></pre></div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>Chapter 5 uses {DMwR}, which is currently unavailable on CRAN. We’ll confirm when we get there, but I’m guessing {DMwR2} will work instead.<a href="sample-code.html#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
+<div id="roc-curves" class="section level2">
+<h2><span class="header-section-number">5.3</span> ROC Curves</h2>
+<ul>
+<li>Stands for “Receiver Operating Characteristics,” but that’s really just trivia.</li>
+<li>The book has the <em>x-axis</em> backwards, which is bonkers.</li>
+<li><code>yardstick::roc_curve</code> constructs a tibble of data for the ROC curve, and can be autoplotted to generate the curve.</li>
+</ul>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="roc-curves.html#cb104-1"></a><span class="kw">library</span>(yardstick)</span></code></pre></div>
+<pre><code>## For binary classification, the first factor level is assumed to be the event.
+## Use the argument `event_level = &quot;second&quot;` to alter this as needed.</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="roc-curves.html#cb106-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb106-2"><a href="roc-curves.html#cb106-2"></a></span>
+<span id="cb106-3"><a href="roc-curves.html#cb106-3"></a><span class="kw">data</span>(two_class_example)</span>
+<span id="cb106-4"><a href="roc-curves.html#cb106-4"></a><span class="kw">autoplot</span>(<span class="kw">roc_curve</span>(two_class_example, truth, Class1))</span></code></pre></div>
+<p><img src="bookclub-ps4ds_files/figure-html/ROC-curve-3.png" width="672" /></p>
+<ul>
+<li>AUC (<code>yardstick::roc_auc()</code>) = area under the ROC curve.
+<ul>
+<li>1 = perfect, 0.5 = random chance</li>
+</ul></li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="book-club-meetings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="st-edition-vs-2nd-edition.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="evaluating-classification-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lift.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -319,7 +327,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/index.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/05.Rmd",
 "text": "Edit"
 },
 "history": {
