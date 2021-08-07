@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-02" />
+<meta name="date" content="2021-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -309,17 +309,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-2"><a href="estimates-of-variability.html#cb27-2"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">20</span>)</span>
 <span id="cb27-3"><a href="estimates-of-variability.html#cb27-3"></a><span class="kw">quantile</span>(x, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
 <pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
-##   6.0  17.0  22.0  29.0  36.8  46.0  62.4  70.0  80.2  86.2 100.0</code></pre>
+##   5.0  14.0  21.0  28.0  38.0  46.0  56.0  67.0  81.0  91.1 100.0</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="estimates-of-variability.html#cb29-1"></a><span class="kw">quantile</span>(y, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
-<pre><code>##        0%       10%       20%       30%       40%       50%       60%       70% 
-## -7.844636 23.122958 30.553372 39.973669 44.028722 49.467467 52.334689 59.097999 
-##       80%       90%      100% 
-## 66.340103 75.125117 99.387869</code></pre>
+<pre><code>##         0%        10%        20%        30%        40%        50%        60% 
+## -0.5191051 23.8713476 37.8798280 42.8172224 48.2209857 52.7063709 59.1168729 
+##        70%        80%        90%       100% 
+## 65.7422759 73.5811009 81.8549220 97.5754181</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="estimates-of-variability.html#cb31-1"></a><span class="kw">quantile</span>(x) <span class="co"># quartile</span></span></code></pre></div>
-<pre><code>##     0%    25%    50%    75%   100% 
-##   6.00  26.00  46.00  75.25 100.00</code></pre>
+<pre><code>##    0%   25%   50%   75%  100% 
+##   5.0  25.0  46.0  70.5 100.0</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="estimates-of-variability.html#cb33-1"></a><span class="kw">IQR</span>(x) <span class="co"># They introduce this later but I like it here.</span></span></code></pre></div>
-<pre><code>## [1] 49.25</code></pre>
+<pre><code>## [1] 45.5</code></pre>
 </div>
 </div>
             </section>
