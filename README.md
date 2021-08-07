@@ -10,16 +10,18 @@ As we read, we are producing [notes about the book](https://r4ds.github.io/bookc
 
 If you would like to present, please add your name next to a chapter using the [GitHub Web Editor](https://youtu.be/d41oc2OMAuI)!
 
-*Cohort 1: (starts 2021-05-10) - Mondays, 10:00am EST/EDT*
+*Cohort 1: (started 2021-05-10) - Mondays, 10:00am EST/EDT*
 
 - 2021-05-10: Introduction - Jon Harmon
 - 2021-05-17: Chapter 1: Exploratory Data Analysis - Jon Harmon
 - 2021-05-24: Chapter 2: Data and Sampling Distributions - Jonathan Bratt
-- **2021-06-07: Chapter 3: Statistical Experiments and Significance Testing - Priyanka**
-- 2021-06-14: Chapter 4: Regression and Prediction - Morgan Grovenburg
-- 2021-06-21: Chapter 5: Classification - PRESENTER(s) TBD
-- 2021-06-28: Chapter 6: Statistical Machine Learning - PRESENTER(s) TBD
-- 2021-07-12: Chapter 7: Unsupervised Learning - PRESENTER(s) TBD
+- 2021-06-14: Chapter 3: Statistical Experiments and Significance Testing - Jonathan Bratt 
+- 2021-06-21: Chapter 4: Regression and Prediction (part 1) - Morgan Grovenburg
+- 2021-07-12: Chapter 4: Regression and Prediction (part 2) - Andrew Farina
+- 2021-07-26: Chapter 5: Classification (part 1) - Jon Harmon
+- 2021-08-02: Chapter 5: Classification (part 2) - Jon Harmon
+- **2021-08-09: Chapter 6: Statistical Machine Learning - PRESENTER(s) TBD**
+- 2021-08-16: Chapter 7: Unsupervised Learning - PRESENTER(s) TBD
 
 <hr>
 

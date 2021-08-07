@@ -2,26 +2,323 @@
 
 **Learning objectives:**
 
-- TBD
+- Perform **linear regressions** with a single independent variable.
+- Perform linear regressions with **multiple** independent variables.
+- Perform regressions with one or more **categorical** independent variables.
+- Perform **nonlinear** generalizations of regression.
+- Compare and contrast the use of regression for **prediction vs. explanation**.
+- **Cautiously interpret** the results of a multivariable linear regression.
+- **Assess the goodness** of a regression model.
 
-## SLIDE 2
+## Weighted Regression
 
-ADD SLIDE CONTENTS
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
 
-## SLIDE 3
+```{r data, include=FALSE}
+data(ames, package = "modeldata")
+```
 
-MORE SLIDE CONTENTS
+Used to give certain records (variables, features) more or less weighting when fitting the regression model. To show this, I will use the ames housing data from the `{modeldata}` package from `tidymodels` and prioritize sale prices of houses sold more recently than those sold earlier in these data.
+
+```{r weighted}
+dat <- ames %>% 
+  dplyr::select(Lot_Area, Neighborhood, Year_Sold, First_Flr_SF, Second_Flr_SF,
+         Bsmt_Full_Bath, Full_Bath, Half_Bath, Bsmt_Half_Bath, Sale_Price,
+         Bedroom_AbvGr, Central_Air, Bldg_Type) %>% 
+  dplyr::mutate(weight = Year_Sold - 2006,
+         total_sf = First_Flr_SF + Second_Flr_SF,
+         bath = Bsmt_Full_Bath + Full_Bath + 0.5*Half_Bath + 0.5*Bsmt_Half_Bath)
+
+
+house_lm <- lm(Sale_Price ~ total_sf + Lot_Area + bath + Bedroom_AbvGr + Central_Air,
+               data = dat)
+house_wt <- lm(Sale_Price ~ total_sf + Lot_Area + bath + Bedroom_AbvGr + Central_Air,
+               data = dat, weight = weight)
+round(cbind(house_lm = house_lm$coefficients,
+                house_wt = house_wt$coefficients), digits = 3)
+```
+
+## Prediction using Regression
+
+**Caution: Be careful extrapolating results beyond the range of the dataset**
+
+Prediction Interval (Uncertainty around a single value)
+
+- Confidence Intervals (Uncertainty around a statistic)
+
+- Individual data point error
+
+Here is an example of individual data point error. If we filter for those properties that have four bedrooms, 3 bathrooms and a lot square footage between 10k and 11k, the sale price varies by $50k. This is error in our model.
+
+```{r uncertainty}
+dat %>% dplyr::filter(Bedroom_AbvGr == 4 & 
+                 bath == 3 & 
+                 Lot_Area >=10000 & 
+                 Lot_Area < 11000) %>% 
+  dplyr::select(Sale_Price) %>%
+  dplyr::arrange(-Sale_Price)
+```
+
+## Factor Variables
+
+We can use the building type as a factor variable to help with our predictions. The building type variable has five options: 
+
+```{r}
+dat %>% count(Bldg_Type)
+```
+
+### Dummy Variables
+
+- One Hot Encoding (KNN, Tree Models) vs P-1 representation (Regression)
+
+One hot encoding is when all factor levels are included in the model. *Adding in all P distinct levels along with the intercept term creates collinearity issues.*
+
+```{r}
+model.matrix(~Bldg_Type -1, data = dat) %>% head(1)
+```
+
+- P-1 encoding (Using all of the factor levels except the reference)
+
+R uses the first factor as the reference level and we should interpret the remaining levels relative to this factor.
+
+```{r warnings = FALSE}
+lm(Sale_Price ~ total_sf + Lot_Area + bath + Bedroom_AbvGr + Central_Air + 
+     Bldg_Type, data = dat) %>% 
+  summary() %>% broom::tidy()
+```
+
+### Ordered Factor Variables 
+
+Treating ordered factors as a numerical variable preserves the information contained in the ordering that would be lost if we simply used a factor conversion (Likert scales, Loan grades, Crime rate, etc).
+
+## Interpreting Regression Equations
+
+### Correlated Variables (Variables that move together, either in the same direction or opposite direction)
+
+Remember back to our house sales data, the coefficient for Bedrooms was negative. This implies that the more bedrooms a house has, the less it will sell for. The reason is the total square feet and the number of bedrooms (and bathrooms) is highly correlated. We can see this using a Gaussian Graphical Model
+
+```{r}
+dat %>% dplyr::select(total_sf, Lot_Area, bath, Bedroom_AbvGr) %>% 
+  correlation::correlation(partial = TRUE) %>%
+  plot()
+```
+
+When we remove the total square feet and number of bathrooms, the number of bedrooms becomes desirable. We are essentially using this as a proxy for the size of the home. 
+
+```{r}
+lm(Sale_Price ~ Lot_Area + Bedroom_AbvGr + Central_Air,
+               data = dat) %>% 
+  summary() %>% 
+  broom::tidy() 
+```
+
+### Multicollinearity (when a predictor can be expressed as a linear combination of other predictors--extreme case of correlated variables)
+
+```{r}
+lm(Sale_Price ~ total_sf + First_Flr_SF + Second_Flr_SF + Lot_Area + 
+     Bedroom_AbvGr + Central_Air, data = dat) %>% 
+  summary() %>% 
+  broom::tidy() 
+```
+
+In the background, R handles this by removing a variable that causes multicollinearity (Second_Flr_SF). However, this is unstable and should be addressed explicitly.
+
+### Confounding Variables (problem of ommision)
+
+With our housing data, location may be a confounding (houses in some neighborhoods may sell at a higher price than other neighborhoods).
+
+```{r}
+neighborhood_groups <- dat %>% 
+  dplyr::mutate(resid = residuals(house_lm)) %>% 
+  dplyr::group_by(Neighborhood) %>% 
+  dplyr::summarize(med_resid = median(resid),
+            cnt = n()) %>% 
+  dplyr::arrange(med_resid) %>% 
+  dplyr::mutate(cum_cnt = cumsum(cnt),
+        neighborhoodgroup = forcats::as_factor(ntile(cum_cnt, 5)))
+
+dat <- dat %>% 
+  left_join(dplyr::select(neighborhood_groups, Neighborhood, neighborhoodgroup),
+            by = "Neighborhood")
+
+lm(Sale_Price ~ total_sf + Lot_Area + Bedroom_AbvGr + bath + Central_Air + 
+     neighborhoodgroup, data = dat) %>% 
+  summary() %>% 
+  broom::tidy()
+```
+
+### Main Effects and Interactions
+
+```{r}
+interaction_fit <- lm(Sale_Price ~ Lot_Area + Bedroom_AbvGr + bath + Central_Air + neighborhoodgroup*total_sf, data = dat) 
+
+interaction_fit %>% 
+  summary() %>% 
+  broom::tidy()
+```
+
+If an interaction is significant, it means the association is different at different levels of a factor or different values of a continuous variable. You will need to visually determine how this differs in order to interpret these results.
+
+```{r}
+interaction <- ggeffects::ggpredict(interaction_fit, 
+                                    terms = c("neighborhoodgroup", "total_sf"))
+
+plot(interaction)
+```
+
+Selecting interaction terms
+
+- Prior knowledge and intuition can guide choices
+
+- Stepwise regression can be used to sift through variables
+
+- Penalized regression can automatically fit to a large set of variables
+
+- The most common approach is to use *tree models*, as well as their descendants which automatically search for optimal interaction terms.
+
+## Regression Diagnostics
+
+### Outliers (extreme value) *This may not be an influential case*
+
+Using the `{performance}` package by Daniel Lüdecke, we identify one influential case using Cook's Distance (Other options are available).
+
+```{r}
+model <- lm(Sale_Price ~ total_sf+ bath + Lot_Area + Bedroom_AbvGr, data = dat)
+
+outliers <- performance::check_outliers(model)
+plot(outliers)
+
+as.data.frame(outliers) %>% 
+  dplyr::arrange(-Outlier_Cook) %>% 
+  head()
+```
+
+It is hard to tell whether this is a typo or a one off sale. The property sold for $160k but has an almost 64k lot area and over 5.6k square footage--quite a deal in this area.
+
+```{r}
+dat %>% slice(1499) %>% select(Sale_Price, total_sf, bath, Lot_Area, Bedroom_AbvGr)
+```
+
+When we remove this influential case, our coefficients change quite a bit.
+
+```{r}
+house_noinfluence <- lm(Sale_Price ~ total_sf+ bath + Lot_Area + Bedroom_AbvGr, 
+                        data = dat %>% 
+                          slice(1:1498, 1500:n()))
+
+round(cbind(house_lm = model$coefficients,
+                house_noinfluence = house_noinfluence$coefficients), digits = 3)
+```
+
+### Assumption Checking (Heteroscedasticity, Normality of residuals, Linearity, and Collinearity)
+
+```{r}
+performance::check_model(model)
+```
+
+## Non-linear Regression
+
+### Partial Residual Plots and Nonlinearity
+
+The linearity plot gives us some indication of a non-linear fit. To dig deeper, we can look at partial residual plots using the {ggeffects} package by Daniel Lüdecke. A partial residual plot represents the residuals of one dependent and one independent variable taking into account the other independent variables.
+
+Here is a standard scatterplot between Sales Price and Total Square Feet
+
+```{r}
+pr <- ggeffects::ggpredict(model, "total_sf [all]")
+plot(pr, add.data = TRUE)
+```
+
+Here we produce a partial residual plot between Sales Price and Total Square Feet (taking into account the other independent variables). The blue line is a local polynomial regression line (loess) for reference. This indicates we may have a non-linear association.
+
+```{r}
+plot(pr, residuals = TRUE, residuals.line = TRUE)
+```
+
+### Polynomial and Spline Regression
+
+We can create a polynomial variable (predictor squared) and add it into the model. The polynomial model seems to more accurately represent these data.
+
+```{r}
+poly_model <- lm(Sale_Price ~ poly(total_sf, 2) + bath + Lot_Area + Bedroom_AbvGr, 
+                 data = dat)
+
+polynomial <- ggeffects::ggpredict(poly_model, "total_sf")
+plot(polynomial, residuals = TRUE, residuals.line = TRUE)
+```
+
+We can create a spline regression which will divides the dataset into multiple bins, called knots, and creates a separate fit for each bin. The difficult part is determining the correct knots.
+
+```{r}
+knots <- quantile(dat$total_sf, p = c(0.25, 0.5, 0.75))
+lm_spline <- lm(Sale_Price ~ splines::bs(total_sf, knots = knots, degree = 3) + 
+                  bath + Lot_Area + Bedroom_AbvGr, data = dat)
+spline <- ggeffects::ggpredict(lm_spline, "total_sf")
+plot(spline, residuals = TRUE, residuals.line = TRUE)
+```
+
+## Generalized Additive Models
+
+```{r}
+lm_gam <- mgcv::gam(Sale_Price ~ s(total_sf) + bath + Lot_Area + Bedroom_AbvGr, 
+                    data = dat)
+gam <- ggeffects::ggpredict(lm_gam, "total_sf")
+plot(gam, residuals = TRUE, residuals.line = TRUE)
+```
 
 ## Meeting Videos
 
-### Cohort 1
+### Cohort 1, Part 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/C0-KhwRufJw")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-CHAT LOG
+00:34:10	pavitra:	https://www.programmingr.com/animation-graphics-r/qq-plot/#:~:text=The%20qqplot%20function%20in%20R.%201%20x%20is,is%20the%20name%20of%20the%20Q%20Q%20plot.
+00:34:47	jiwan:	maybe the base R plot() function on an lm result? it plots a bunch of things (resid, qq, …)
+00:35:55	June Choe:	re: qq plots - there's an interesting paper (and an R package {qqvases}) on QQ plots that draws an analogy to filling a vase with water which intuitively clicked for me - https://repository.upenn.edu/cgi/viewcontent.cgi?article=1605&context=statistics_papers
+00:36:35	pavitra:	ooh..that looks good. Thanks June
+00:36:49	pavitra:	good catch, Jonathan
+00:37:08	Ryan S:	# to graph the residuals (from r4ds Ch25)
+library(modelr)
+library(tidyverse)
+library(gapminder)
+nz <- filter(gapminder, country == "New Zealand")
+nz_mod <- lm(lifeExp ~ year, data = nz)
+plot3 <- nz %>% 
+  add_residuals(nz_mod) %>% 
+  ggplot(aes(year, resid)) + 
+  geom_hline(yintercept = 0, colour = "white", size = 3) + 
+  geom_line() + 
+  ggtitle("Resid pattern")
+00:38:00	pavitra:	nice! Thank you Ryan. That's what I wanted to know
+00:40:02	pavitra:	apparently bathrooms are not very significant in this model
+00:40:04	pavitra:	that figures
+00:58:45	pavitra:	thanks morgan. this was a dense chapter
+00:58:54	June Choe:	thanks for presenting!
+00:58:59	priyanka gagneja:	thx Morgan 
+00:59:10	Stan Piotrowski:	Great presentation, Morgan!
+00:59:12	jiwan:	Thank you Morgan!
+00:59:17	shamsuddeen:	Thanks Morgan, great presentation
+00:59:18	Morgan Grovenburg:	Thank you all for your patience with me!
+01:03:04	Andy Farina:	Thank you Morgan, great presentation
+01:04:07	Andy Farina:	I am able to present if you would like a break
+01:04:39	shamsuddeen:	See yall
+```
+</details>
+
+### Cohort 1, Part 2
+
+`r knitr::include_url("https://www.youtube.com/embed/VdDqclH2Fio")`
+
+<details>
+<summary> Meeting chat log </summary>
+
+```
+no chat log
 ```
 </details>

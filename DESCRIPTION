@@ -13,25 +13,37 @@ Depends:
     R (>= 3.1.0)
 Imports: 
     bookdown,
+    broom,
     ca,
+    correlation,
     corrplot,
     details,
     DMwR2,
     ellipse,
     emo,
     FNN,
+    ggeffects,
+    ggplot2,
+    ggraph,
     gmodels,
     here,
     kableExtra,
     klaR,
     lmPerm,
     matrixStats,
+    modeldata,
     mclust,
+    mgcv,
+    performance,
     pwr,
+    qqplotr,
     remotes,
     rmarkdown,
+    see,
+    splines,
     tidyverse,
     vioplot,
-    xgboost
+    xgboost,
+    yardstick
 Remotes: 
     hadley/emo
