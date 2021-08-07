@@ -2,7 +2,10 @@
 
 **Learning objectives:**
 
-- TBD
+- Apply the K-Nearest Neighbors (KNN) algorithm.
+- Use decision tree models to classify or predict an outcome.
+- Use random forest models to classify or predict an outcome.
+- Use boosted tree models to classify or predict an outcome.
 
 ## SLIDE 2
 
