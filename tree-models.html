@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.15 Meeting Videos | Practical Statistics for Data Scientists Book Club</title>
+  <title>6.2 Tree Models | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.15 Meeting Videos | Practical Statistics for Data Scientists Book Club" />
+  <meta property="og:title" content="6.2 Tree Models | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="r4ds/bookclub-ps4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.15 Meeting Videos | Practical Statistics for Data Scientists Book Club" />
+  <meta name="twitter:title" content="6.2 Tree Models | Practical Statistics for Data Scientists Book Club" />
   
   <meta name="twitter:description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-poisson-distribution.html"/>
-<link rel="next" href="statistical-experiments-and-significance-testing.html"/>
+<link rel="prev" href="knn.html"/>
+<link rel="next" href="bagging-and-the-random-forest.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -272,62 +272,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="meeting-videos-2" class="section level2">
-<h2><span class="header-section-number">2.15</span> Meeting Videos</h2>
-<div id="cohort-1-2" class="section level3">
-<h3><span class="header-section-number">2.15.1</span> Cohort 1</h3>
-<iframe src="https://www.youtube.com/embed/w_UZIKzstnU" width="100%" height="400px">
-</iframe>
-<details>
-<p><summary> Meeting chat log </summary></p>
-<pre><code>00:09:49    shamsuddeen:    Hi everyone, good to see u all today
-00:10:36    Jon Harmon (jonthegeek):    Good morning (or whatever time it might be)!
-00:12:51    priyanka gagneja:   I see chap 2
-00:14:32    Jon Harmon (jonthegeek):    Did someone volunteer for Chapter 3? I&#39;ll bother people at the end if not but thought I&#39;d let people mull it over before then :)
-00:16:48    Morgan Grovenburg:  Are we meeting on Memorial Day?
-00:17:31    Jon Harmon (jonthegeek):    Oh, hmm. We should skip. Thanks for noticing the timing! That also gives us more time to get caught up for chapter 3 :)
-00:22:40    Scott Nestler:  Minor quibble on something that was said. But I think it is important. I would say that a sample HAS a distribution (the sampling distribution), rather than IS a distribution.  Any particular sample we draw is one observation FROM the sampling distribution.
-00:23:12    Scott Nestler:  (technically a collection of individual observations)
-00:23:25    Diego Ramírez González: When you do hypothesis testing you want to estimate something about a population, but you do it through a sample
-00:24:20    Scott Nestler:  If you have access to the population, and you measure things about each member, you are conducting a CENSUS.
-00:24:52    Kaytee Flick:   @Scott The book defines the sampling distribution as the distribution of some sample stat over many samples from the same population....vs data distribution which is the distribution of individual data points
-00:24:58    Diego Ramírez González: Isn&#39;t a sampling distribution a distribution a point estimates?
-00:25:06    shamsuddeen:    @Scot great point
-00:25:14    Diego Ramírez González: while a sample has a distribution of raw data
-00:26:44    priyanka gagneja:   @diego .. I would say that&#39;s an ideal scenario .. if your sample is BEST ( I think that&#39;s the acronym or something) .. where your sample is representative of the population.. it would have same distribution as population but that may not always be true 
-00:28:04    shamsuddeen:    Can we have bias-free data?
-00:28:48    priyanka gagneja:   oh and a suggestion/ correction Jonathan.. from my old stats class .. population has (p)arameters while sample has (s)tatistic
-00:32:59    Scott Nestler:  Priyanka is correct that populations have parameters (that describe the distribution for named families), BUT they do also have &quot;population statistics&quot; which can sometimes (but rarely) be calculated.
-00:36:14    Scott Nestler:  Regarding Shamsuddeen&#39;s question … it really isn&#39;t data that has a bias (or not), but rather the statistic(s) we are calculating with it.  Some statistics are biased and some are not. That depends on whether the expected value of the statistic is equal to the population parameter being estimated by it (or not).
-00:36:54    priyanka gagneja:   +1 ..Scott &#39;s ans to shamshudeen s ques
-00:38:53    shamsuddeen:    Thanks Scott.
-00:39:56    pavitra:    amazing discussion Jonathan. Really eye-opening when you get into the weeds with summary stats
-00:42:03    pavitra:    even if sample size is small, sampling enough number of times eventually gets you a normally distributed summary stat?
-00:42:41    jiwan:  I think the book covers this in the bootstrap section
-00:43:13    Jon Harmon (jonthegeek):    He&#39;s building up to the bootstrap 😄
-00:45:15    Diego Ramírez González: Showing the standard error is a bit misleading anyway, its always going to be smaller than the standard deviation
-00:48:01    Kaytee Flick:   .....I think that&#39;s exactly why its used.
-00:52:31    Rahul:  1.272
-00:59:22    Jon Harmon (jonthegeek):    If you have 1e: The Chi-Square Distribution and F-Distribution subsections are new... but they talk about those distributions in later chapters so you should still be fine/able to keep up when we talk about them again.
-01:00:21    pavitra:    dang, this chapter is everything
-01:03:13    Scott Nestler:  Regarding skill vs. luck in sports (briefly mentioned in the chapter) -- the short video here is useful:  https://stakehunters.com/betting-guide/the-balance-of-luck-and-skills-in-top-sports--choose-on-what-do-you-bet
-01:04:00    jiwan:  ch,3 was fairly long
-01:04:32    Morgan Grovenburg:  I&#39;d like to split the chapters in half
-01:04:54    Morgan Grovenburg:  I can&#39;t present that week
-01:05:29    Diego Ramírez González: maybe we should combine chapter 3 and 4, they are basically the same information
-01:07:26    Diego Ramírez González: bye</code></pre>
-</details>
-
+<div id="tree-models" class="section level2">
+<h2><span class="header-section-number">6.2</span> Tree Models</h2>
+<p>A decision tree is a nice way to build a model that can be intuitively
+understood by the humans.</p>
+<ul>
+<li>List of binary decisions that are applied sequentially to new data.</li>
+<li>Relatively transparent:
+<ul>
+<li>Easy to understand how the model works.</li>
+<li>Easy to understand how the decision rules were obtained.</li>
+<li>The rules themselves are interpretable (at least superficially).</li>
+</ul></li>
+<li>How big to let the tree grow?
+<ul>
+<li>Too big: overfit.</li>
+<li>Too small: underfit.</li>
+</ul></li>
+</ul>
+<p>Unlike KNN, which always takes the <em>K</em> nearest “neighbors” of the new example, a
+decision tree divides the feature space into a set of fixed “neighborhoods.”</p>
 </div>
-</div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="the-poisson-distribution.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="statistical-experiments-and-significance-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="knn.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bagging-and-the-random-forest.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -359,7 +331,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/02.Rmd",
+"link": "https://github.com/r4ds/bookclub-ps4ds/edit/main/06.Rmd",
 "text": "Edit"
 },
 "history": {

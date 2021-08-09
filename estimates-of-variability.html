@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-07" />
+<meta name="date" content="2021-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -234,15 +234,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="statistical-machine-learning.html"><a href="statistical-machine-learning.html"><i class="fa fa-check"></i><b>6</b> Statistical Machine Learning</a><ul>
-<li class="chapter" data-level="6.1" data-path="slide-2-1.html"><a href="slide-2-1.html"><i class="fa fa-check"></i><b>6.1</b> SLIDE 2</a></li>
-<li class="chapter" data-level="6.2" data-path="slide-3-1.html"><a href="slide-3-1.html"><i class="fa fa-check"></i><b>6.2</b> SLIDE 3</a></li>
-<li class="chapter" data-level="6.3" data-path="meeting-videos-6.html"><a href="meeting-videos-6.html"><i class="fa fa-check"></i><b>6.3</b> Meeting Videos</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="meeting-videos-6.html"><a href="meeting-videos-6.html#cohort-1-4"><i class="fa fa-check"></i><b>6.3.1</b> Cohort 1</a></li>
+<li class="chapter" data-level="" data-path="statistical-machine-learning-1.html"><a href="statistical-machine-learning-1.html"><i class="fa fa-check"></i>Statistical Machine Learning</a></li>
+<li class="chapter" data-level="6.1" data-path="knn.html"><a href="knn.html"><i class="fa fa-check"></i><b>6.1</b> KNN</a></li>
+<li class="chapter" data-level="6.2" data-path="tree-models.html"><a href="tree-models.html"><i class="fa fa-check"></i><b>6.2</b> Tree Models</a></li>
+<li class="chapter" data-level="6.3" data-path="bagging-and-the-random-forest.html"><a href="bagging-and-the-random-forest.html"><i class="fa fa-check"></i><b>6.3</b> Bagging and the Random Forest</a></li>
+<li class="chapter" data-level="6.4" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>6.4</b> Boosting</a></li>
+<li class="chapter" data-level="" data-path="boosting-1.html"><a href="boosting-1.html"><i class="fa fa-check"></i>Boosting</a></li>
+<li class="chapter" data-level="" data-path="boosting-2.html"><a href="boosting-2.html"><i class="fa fa-check"></i>Boosting</a></li>
+<li class="chapter" data-level="6.5" data-path="meeting-videos-6.html"><a href="meeting-videos-6.html"><i class="fa fa-check"></i><b>6.5</b> Meeting Videos</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="meeting-videos-6.html"><a href="meeting-videos-6.html#cohort-1-4"><i class="fa fa-check"></i><b>6.5.1</b> Cohort 1</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Unsupervised Learning</a><ul>
-<li class="chapter" data-level="7.1" data-path="slide-2-2.html"><a href="slide-2-2.html"><i class="fa fa-check"></i><b>7.1</b> SLIDE 2</a></li>
-<li class="chapter" data-level="7.2" data-path="slide-3-2.html"><a href="slide-3-2.html"><i class="fa fa-check"></i><b>7.2</b> SLIDE 3</a></li>
+<li class="chapter" data-level="7.1" data-path="slide-2-1.html"><a href="slide-2-1.html"><i class="fa fa-check"></i><b>7.1</b> SLIDE 2</a></li>
+<li class="chapter" data-level="7.2" data-path="slide-3-1.html"><a href="slide-3-1.html"><i class="fa fa-check"></i><b>7.2</b> SLIDE 3</a></li>
 <li class="chapter" data-level="7.3" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html"><i class="fa fa-check"></i><b>7.3</b> Meeting Videos</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html#cohort-1-5"><i class="fa fa-check"></i><b>7.3.1</b> Cohort 1</a></li>
 </ul></li>
@@ -308,18 +313,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="estimates-of-variability.html#cb27-1"></a>x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb27-2"><a href="estimates-of-variability.html#cb27-2"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">20</span>)</span>
 <span id="cb27-3"><a href="estimates-of-variability.html#cb27-3"></a><span class="kw">quantile</span>(x, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
-<pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
-##   5.0  14.0  21.0  28.0  38.0  46.0  56.0  67.0  81.0  91.1 100.0</code></pre>
+<pre><code>##   0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
+##  1.0  8.0 13.8 22.0 36.2 46.0 54.4 61.6 73.2 88.1 98.0</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="estimates-of-variability.html#cb29-1"></a><span class="kw">quantile</span>(y, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
 <pre><code>##         0%        10%        20%        30%        40%        50%        60% 
-## -0.5191051 23.8713476 37.8798280 42.8172224 48.2209857 52.7063709 59.1168729 
+## -0.8474449 23.7764374 30.7105336 38.1701036 42.5597208 46.8549844 51.4610487 
 ##        70%        80%        90%       100% 
-## 65.7422759 73.5811009 81.8549220 97.5754181</code></pre>
+## 56.3272695 61.5199039 71.0894688 90.8324395</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="estimates-of-variability.html#cb31-1"></a><span class="kw">quantile</span>(x) <span class="co"># quartile</span></span></code></pre></div>
 <pre><code>##    0%   25%   50%   75%  100% 
-##   5.0  25.0  46.0  70.5 100.0</code></pre>
+##  1.00 16.75 46.00 70.00 98.00</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="estimates-of-variability.html#cb33-1"></a><span class="kw">IQR</span>(x) <span class="co"># They introduce this later but I like it here.</span></span></code></pre></div>
-<pre><code>## [1] 45.5</code></pre>
+<pre><code>## [1] 53.25</code></pre>
 </div>
 </div>
             </section>
