@@ -9,7 +9,7 @@
 
 ## Statistical Machine Learning {.unnumbered}
 
-This chapter covers some of the statistical methods (i.e. *not* deep learning?)
+This chapter covers some of the statistical methods
 used for machine learning.
 
 Most of statistics (at least, in this book) deals with *inference*, and
