@@ -314,17 +314,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-2"><a href="estimates-of-variability.html#cb27-2"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">20</span>)</span>
 <span id="cb27-3"><a href="estimates-of-variability.html#cb27-3"></a><span class="kw">quantile</span>(x, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
 <pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
-##   1.0  22.8  29.0  40.0  48.6  57.5  71.4  82.9  89.0  93.0 100.0</code></pre>
+##   7.0  13.9  23.8  30.7  44.6  51.0  58.0  69.0  78.2  89.0 100.0</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="estimates-of-variability.html#cb29-1"></a><span class="kw">quantile</span>(y, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
 <pre><code>##         0%        10%        20%        30%        40%        50%        60% 
-##   3.354361  21.052388  30.773052  38.717211  46.915686  52.017919  54.707215 
+##  -0.610654  26.549447  34.040462  39.342754  43.923081  47.470683  51.543901 
 ##        70%        80%        90%       100% 
-##  57.268455  61.104643  70.414302 103.523073</code></pre>
+##  57.870107  65.309229  78.016405 101.387923</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="estimates-of-variability.html#cb31-1"></a><span class="kw">quantile</span>(x) <span class="co"># quartile</span></span></code></pre></div>
 <pre><code>##     0%    25%    50%    75%   100% 
-##   1.00  34.25  57.50  87.00 100.00</code></pre>
+##   7.00  26.75  51.00  74.25 100.00</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="estimates-of-variability.html#cb33-1"></a><span class="kw">IQR</span>(x) <span class="co"># They introduce this later but I like it here.</span></span></code></pre></div>
-<pre><code>## [1] 52.75</code></pre>
+<pre><code>## [1] 47.5</code></pre>
 </div>
 </div>
             </section>
