@@ -110,12 +110,13 @@ component trees.
 
 ### Cohort 1
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/ZVy-d-MaBm4")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-CHAT LOG
+00:24:32	Jon Harmon (jonthegeek):	p241 is the image.
+00:48:07	Jon Harmon (jonthegeek):	The link Jonathan references for a boosting definition: https://towardsdatascience.com/boosting-algorithms-explained-d38f56ef3f30 (will also be in the slides at r4ds.io/ps4ds this afternoon)
 ```
 </details>

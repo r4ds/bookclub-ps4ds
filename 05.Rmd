@@ -82,12 +82,12 @@ autoplot(lift_curve(two_class_example, truth, Class1))
 
 ### Cohort 1, part 2
 
-`r knitr::include_url("https://www.youtube.com/embed/URL")`
+`r knitr::include_url("https://www.youtube.com/embed/aZmzrugOI0Y")`
 
 <details>
 <summary> Meeting chat log </summary>
 
 ```
-CHAT LOG
+no chat log
 ```
 </details>
