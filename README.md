@@ -20,8 +20,8 @@ If you would like to present, please add your name next to a chapter using the [
 - 2021-07-12: Chapter 4: Regression and Prediction (part 2) - Andrew Farina
 - 2021-07-26: Chapter 5: Classification (part 1) - Jon Harmon
 - 2021-08-02: Chapter 5: Classification (part 2) - Jon Harmon
-- **2021-08-09: Chapter 6: Statistical Machine Learning - PRESENTER(s) TBD**
-- 2021-08-16: Chapter 7: Unsupervised Learning - PRESENTER(s) TBD
+- 2021-08-09: Chapter 6: Statistical Machine Learning - Jonathan Bratt
+- **2021-08-16: Chapter 7: Unsupervised Learning - PRESENTER(s) TBD**
 
 <hr>
 
