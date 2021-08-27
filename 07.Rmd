@@ -2,15 +2,68 @@
 
 **Learning objectives:**
 
-- TBD
+- Dimensionality Reduction with Principal Component Analysis 
+- 3 Clustering techniques: 
+  - K-means Clustering 
+  - Hierarchical Clustering
+  - Model-based Clustering
 
-## SLIDE 2
 
-ADD SLIDE CONTENTS
+## Unsupervised Learning {.unnumbered}
 
-## SLIDE 3
+Unsupervised Learning statistical methods extract meaning from data without training a model on a specific outcome.
 
-MORE SLIDE CONTENTS
+Two main use cases are dimensionality reduction & clustering, which can reveal insights into a dataset, or relationships between variables.
+
+## Principal Component Analysis (PCA) {.unnumbered}
+
+https://twitter.com/allison_horst/status/1288904459490213888
+
+PCA seeks to represent multiple variables that covary, with a smaller number of new predictors. This is done by seeking weighted linear combinations of the original set, that "explains" most of the variability of the full dataset.
+
+The result of a PCA, is these weights (loadings), which are instructions on how to transform the original variables into principal components.
+
+To interpret principal components, we use a chart that plots PC loadings vs original variables, and screeplots.
+
+![](https://juliasilge.com/blog/best-hip-hop/index_files/figure-html/unnamed-chunk-11-1.png)
+
+![](https://juliasilge.com/blog/best-hip-hop/index_files/figure-html/unnamed-chunk-14-1.png)
+
+## K-Means Clustering {.unnumbered}
+
+Divide data into pre-defined K number of clusters, by minimizing the sum of squared distances of each record to their cluster means.
+
+Steps:
+
+1. Start by randomly selecting K points, each of them being the initial centroid.
+2. Assign the remaining data, to the closest cluster, and update the cluster centroid (mean).
+3. Repeat this process until the cluster means don't move.
+
+https://machinelearningmedium.com/assets/2018-04-19-k-means-clustering/fig-1-clustering-animation.gif?raw=true
+
+Algorithm is not guaranteed to find the best possible solution, and there's no standard for finding the optimal K.
+
+Interpreting the clusters mainly involve the sizes of the clusters and the means. We're trying to see if the clusters will work on new data.
+
+## Hierarchical Clustering {.unnumbered}
+
+Using a user-defined distance (between records) & **dissimilarity (between clusters)** metric to cluster data. This clustering allows us to visualize the effect of clustering, with dendrogram.
+
+Steps:
+
+1. Start by having all records as individual clusters
+2. Calculate the distance between all pairs of records
+3. Using 1 of 4 dissimilarity metrics, calculate the dissimilarity between all pairs of clusters
+4. Merge two clusters that are least dissimilar
+5. Continue until there's 1 cluster
+
+![](https://r-graphics.org/R-Graphics-Cookbook-2e_files/figure-html/FIG-MISCGRAPH-DENDROGRAM-2.png)
+
+## Model-Based Clustering {.unnumbered}
+
+Assume that all the variables come from a set of some statistical distribution (multivariate normal distribution), and find those distributions (by parameterizing covariance matrix)
+
+Automatic selection of K, by choosing the number of clusters that maximizes BIC.
 
 ## Meeting Videos
 
