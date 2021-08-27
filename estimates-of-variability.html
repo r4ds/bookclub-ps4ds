@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.3 Estimates of Variability | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.3 Estimates of Variability | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-09" />
+<meta name="date" content="2021-08-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="estimates-of-location.html"/>
 <link rel="next" href="histograms-friends.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -246,10 +246,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Unsupervised Learning</a><ul>
-<li class="chapter" data-level="7.1" data-path="slide-2-1.html"><a href="slide-2-1.html"><i class="fa fa-check"></i><b>7.1</b> SLIDE 2</a></li>
-<li class="chapter" data-level="7.2" data-path="slide-3-1.html"><a href="slide-3-1.html"><i class="fa fa-check"></i><b>7.2</b> SLIDE 3</a></li>
-<li class="chapter" data-level="7.3" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html"><i class="fa fa-check"></i><b>7.3</b> Meeting Videos</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html#cohort-1-5"><i class="fa fa-check"></i><b>7.3.1</b> Cohort 1</a></li>
+<li class="chapter" data-level="" data-path="unsupervised-learning-1.html"><a href="unsupervised-learning-1.html"><i class="fa fa-check"></i>Unsupervised Learning</a></li>
+<li class="chapter" data-level="" data-path="principal-component-analysis-pca.html"><a href="principal-component-analysis-pca.html"><i class="fa fa-check"></i>Principal Component Analysis (PCA)</a></li>
+<li class="chapter" data-level="" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i>K-Means Clustering</a></li>
+<li class="chapter" data-level="" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i>Hierarchical Clustering</a></li>
+<li class="chapter" data-level="" data-path="model-based-clustering.html"><a href="model-based-clustering.html"><i class="fa fa-check"></i>Model-Based Clustering</a></li>
+<li class="chapter" data-level="7.1" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html"><i class="fa fa-check"></i><b>7.1</b> Meeting Videos</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="meeting-videos-7.html"><a href="meeting-videos-7.html#cohort-1-5"><i class="fa fa-check"></i><b>7.1.1</b> Cohort 1</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -314,17 +317,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-2"><a href="estimates-of-variability.html#cb27-2"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">20</span>)</span>
 <span id="cb27-3"><a href="estimates-of-variability.html#cb27-3"></a><span class="kw">quantile</span>(x, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
 <pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
-##   7.0  13.9  23.8  30.7  44.6  51.0  58.0  69.0  78.2  89.0 100.0</code></pre>
+##   1.0   9.8  20.8  29.7  39.2  46.5  55.0  69.0  82.2  93.0 100.0</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="estimates-of-variability.html#cb29-1"></a><span class="kw">quantile</span>(y, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
-<pre><code>##         0%        10%        20%        30%        40%        50%        60% 
-##  -0.610654  26.549447  34.040462  39.342754  43.923081  47.470683  51.543901 
-##        70%        80%        90%       100% 
-##  57.870107  65.309229  78.016405 101.387923</code></pre>
+<pre><code>##        0%       10%       20%       30%       40%       50%       60%       70% 
+## -6.459611 28.886440 36.903758 42.473192 49.147306 53.924383 56.884276 61.193484 
+##       80%       90%      100% 
+## 67.268909 73.279145 94.215291</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="estimates-of-variability.html#cb31-1"></a><span class="kw">quantile</span>(x) <span class="co"># quartile</span></span></code></pre></div>
-<pre><code>##     0%    25%    50%    75%   100% 
-##   7.00  26.75  51.00  74.25 100.00</code></pre>
+<pre><code>##    0%   25%   50%   75%  100% 
+##   1.0  26.0  46.5  76.0 100.0</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="estimates-of-variability.html#cb33-1"></a><span class="kw">IQR</span>(x) <span class="co"># They introduce this later but I like it here.</span></span></code></pre></div>
-<pre><code>## [1] 47.5</code></pre>
+<pre><code>## [1] 50</code></pre>
 </div>
 </div>
             </section>
@@ -377,6 +380,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

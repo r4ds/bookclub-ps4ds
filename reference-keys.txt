@@ -73,7 +73,5 @@ boosting
 meeting-videos-6
 cohort-1-4
 unsupervised-learning
-slide-2-1
-slide-3-1
 meeting-videos-7
 cohort-1-5
