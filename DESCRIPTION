@@ -1,6 +1,6 @@
 Package: ps4ds
 Title: Practical Statistics for Data Scientists Book Club
-Version: 0.0.0.9006
+Version: 1.0.0
 Authors@R: c(
   person(
     "R4DS Online Learning Community",
