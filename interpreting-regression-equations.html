@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.4 Interpreting Regression Equations | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.4 Interpreting Regression Equations | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-27" />
+<meta name="date" content="2021-09-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,6 +34,7 @@
 <link rel="prev" href="factor-variables.html"/>
 <link rel="next" href="regression-diagnostics.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -283,28 +283,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="interpreting-regression-equations.html#cb71-1"></a>dat <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(total_sf, Lot_Area, bath, Bedroom_AbvGr) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb71-2"><a href="interpreting-regression-equations.html#cb71-2"></a><span class="st">  </span>correlation<span class="op">::</span><span class="kw">correlation</span>(<span class="dt">partial =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
 <span id="cb71-3"><a href="interpreting-regression-equations.html#cb71-3"></a><span class="st">  </span><span class="kw">plot</span>()</span></code></pre></div>
-<pre><code>## Registered S3 methods overwritten by &#39;parameters&#39;:
-##   method                           from      
-##   as.double.parameters_kurtosis    datawizard
-##   as.double.parameters_skewness    datawizard
-##   as.double.parameters_smoothness  datawizard
-##   as.numeric.parameters_kurtosis   datawizard
-##   as.numeric.parameters_skewness   datawizard
-##   as.numeric.parameters_smoothness datawizard
-##   print.parameters_distribution    datawizard
-##   print.parameters_kurtosis        datawizard
-##   print.parameters_skewness        datawizard
-##   summary.parameters_kurtosis      datawizard
-##   summary.parameters_skewness      datawizard</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;see&#39;:
-##   method                    from      
-##   plot.visualisation_recipe datawizard</code></pre>
 <pre><code>## NULL</code></pre>
 <p>When we remove the total square feet and number of bathrooms, the number of bedrooms becomes desirable. We are essentially using this as a proxy for the size of the home.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="interpreting-regression-equations.html#cb75-1"></a><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>Central_Air,</span>
-<span id="cb75-2"><a href="interpreting-regression-equations.html#cb75-2"></a>               <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb75-3"><a href="interpreting-regression-equations.html#cb75-3"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb75-4"><a href="interpreting-regression-equations.html#cb75-4"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="interpreting-regression-equations.html#cb73-1"></a><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>Central_Air,</span>
+<span id="cb73-2"><a href="interpreting-regression-equations.html#cb73-2"></a>               <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb73-3"><a href="interpreting-regression-equations.html#cb73-3"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb73-4"><a href="interpreting-regression-equations.html#cb73-4"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>() </span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   term          estimate std.error statistic  p.value
 ##   &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -315,10 +299,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="multicollinearity-when-a-predictor-can-be-expressed-as-a-linear-combination-of-other-predictorsextreme-case-of-correlated-variables" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> Multicollinearity (when a predictor can be expressed as a linear combination of other predictors–extreme case of correlated variables)</h3>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="interpreting-regression-equations.html#cb77-1"></a><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>total_sf <span class="op">+</span><span class="st"> </span>First_Flr_SF <span class="op">+</span><span class="st"> </span>Second_Flr_SF <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span></span>
-<span id="cb77-2"><a href="interpreting-regression-equations.html#cb77-2"></a><span class="st">     </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>Central_Air, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-3"><a href="interpreting-regression-equations.html#cb77-3"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-4"><a href="interpreting-regression-equations.html#cb77-4"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="interpreting-regression-equations.html#cb75-1"></a><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>total_sf <span class="op">+</span><span class="st"> </span>First_Flr_SF <span class="op">+</span><span class="st"> </span>Second_Flr_SF <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span></span>
+<span id="cb75-2"><a href="interpreting-regression-equations.html#cb75-2"></a><span class="st">     </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>Central_Air, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb75-3"><a href="interpreting-regression-equations.html#cb75-3"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb75-4"><a href="interpreting-regression-equations.html#cb75-4"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>() </span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   term            estimate std.error statistic   p.value
 ##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -333,23 +317,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="confounding-variables-problem-of-ommision" class="section level3">
 <h3><span class="header-section-number">4.4.3</span> Confounding Variables (problem of ommision)</h3>
 <p>With our housing data, location may be a confounding (houses in some neighborhoods may sell at a higher price than other neighborhoods).</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="interpreting-regression-equations.html#cb79-1"></a>neighborhood_groups &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-2"><a href="interpreting-regression-equations.html#cb79-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">resid =</span> <span class="kw">residuals</span>(house_lm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-3"><a href="interpreting-regression-equations.html#cb79-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(Neighborhood) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-4"><a href="interpreting-regression-equations.html#cb79-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">med_resid =</span> <span class="kw">median</span>(resid),</span>
-<span id="cb79-5"><a href="interpreting-regression-equations.html#cb79-5"></a>            <span class="dt">cnt =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-6"><a href="interpreting-regression-equations.html#cb79-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(med_resid) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-7"><a href="interpreting-regression-equations.html#cb79-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">cum_cnt =</span> <span class="kw">cumsum</span>(cnt),</span>
-<span id="cb79-8"><a href="interpreting-regression-equations.html#cb79-8"></a>        <span class="dt">neighborhoodgroup =</span> forcats<span class="op">::</span><span class="kw">as_factor</span>(<span class="kw">ntile</span>(cum_cnt, <span class="dv">5</span>)))</span>
-<span id="cb79-9"><a href="interpreting-regression-equations.html#cb79-9"></a></span>
-<span id="cb79-10"><a href="interpreting-regression-equations.html#cb79-10"></a>dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-11"><a href="interpreting-regression-equations.html#cb79-11"></a><span class="st">  </span><span class="kw">left_join</span>(dplyr<span class="op">::</span><span class="kw">select</span>(neighborhood_groups, Neighborhood, neighborhoodgroup),</span>
-<span id="cb79-12"><a href="interpreting-regression-equations.html#cb79-12"></a>            <span class="dt">by =</span> <span class="st">&quot;Neighborhood&quot;</span>)</span>
-<span id="cb79-13"><a href="interpreting-regression-equations.html#cb79-13"></a></span>
-<span id="cb79-14"><a href="interpreting-regression-equations.html#cb79-14"></a><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>total_sf <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Central_Air <span class="op">+</span><span class="st"> </span></span>
-<span id="cb79-15"><a href="interpreting-regression-equations.html#cb79-15"></a><span class="st">     </span>neighborhoodgroup, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-16"><a href="interpreting-regression-equations.html#cb79-16"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-17"><a href="interpreting-regression-equations.html#cb79-17"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="interpreting-regression-equations.html#cb77-1"></a>neighborhood_groups &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-2"><a href="interpreting-regression-equations.html#cb77-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">resid =</span> <span class="kw">residuals</span>(house_lm)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-3"><a href="interpreting-regression-equations.html#cb77-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(Neighborhood) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-4"><a href="interpreting-regression-equations.html#cb77-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">med_resid =</span> <span class="kw">median</span>(resid),</span>
+<span id="cb77-5"><a href="interpreting-regression-equations.html#cb77-5"></a>            <span class="dt">cnt =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-6"><a href="interpreting-regression-equations.html#cb77-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(med_resid) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-7"><a href="interpreting-regression-equations.html#cb77-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">cum_cnt =</span> <span class="kw">cumsum</span>(cnt),</span>
+<span id="cb77-8"><a href="interpreting-regression-equations.html#cb77-8"></a>        <span class="dt">neighborhoodgroup =</span> forcats<span class="op">::</span><span class="kw">as_factor</span>(<span class="kw">ntile</span>(cum_cnt, <span class="dv">5</span>)))</span>
+<span id="cb77-9"><a href="interpreting-regression-equations.html#cb77-9"></a></span>
+<span id="cb77-10"><a href="interpreting-regression-equations.html#cb77-10"></a>dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-11"><a href="interpreting-regression-equations.html#cb77-11"></a><span class="st">  </span><span class="kw">left_join</span>(dplyr<span class="op">::</span><span class="kw">select</span>(neighborhood_groups, Neighborhood, neighborhoodgroup),</span>
+<span id="cb77-12"><a href="interpreting-regression-equations.html#cb77-12"></a>            <span class="dt">by =</span> <span class="st">&quot;Neighborhood&quot;</span>)</span>
+<span id="cb77-13"><a href="interpreting-regression-equations.html#cb77-13"></a></span>
+<span id="cb77-14"><a href="interpreting-regression-equations.html#cb77-14"></a><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>total_sf <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Central_Air <span class="op">+</span><span class="st"> </span></span>
+<span id="cb77-15"><a href="interpreting-regression-equations.html#cb77-15"></a><span class="st">     </span>neighborhoodgroup, <span class="dt">data =</span> dat) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-16"><a href="interpreting-regression-equations.html#cb77-16"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-17"><a href="interpreting-regression-equations.html#cb77-17"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 5
 ##    term                 estimate std.error statistic   p.value
 ##    &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -366,11 +350,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="main-effects-and-interactions" class="section level3">
 <h3><span class="header-section-number">4.4.4</span> Main Effects and Interactions</h3>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="interpreting-regression-equations.html#cb81-1"></a>interaction_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Central_Air <span class="op">+</span><span class="st"> </span>neighborhoodgroup<span class="op">*</span>total_sf, <span class="dt">data =</span> dat) </span>
-<span id="cb81-2"><a href="interpreting-regression-equations.html#cb81-2"></a></span>
-<span id="cb81-3"><a href="interpreting-regression-equations.html#cb81-3"></a>interaction_fit <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-4"><a href="interpreting-regression-equations.html#cb81-4"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-5"><a href="interpreting-regression-equations.html#cb81-5"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="interpreting-regression-equations.html#cb79-1"></a>interaction_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Central_Air <span class="op">+</span><span class="st"> </span>neighborhoodgroup<span class="op">*</span>total_sf, <span class="dt">data =</span> dat) </span>
+<span id="cb79-2"><a href="interpreting-regression-equations.html#cb79-2"></a></span>
+<span id="cb79-3"><a href="interpreting-regression-equations.html#cb79-3"></a>interaction_fit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb79-4"><a href="interpreting-regression-equations.html#cb79-4"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb79-5"><a href="interpreting-regression-equations.html#cb79-5"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 14 × 5
 ##    term                          estimate std.error statistic  p.value
 ##    &lt;chr&gt;                            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -389,10 +373,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 13 neighborhoodgroup4:total_sf     29.6      5.48       5.40  7.25e- 8
 ## 14 neighborhoodgroup5:total_sf     76.6      5.49      13.9   7.29e-43</code></pre>
 <p>If an interaction is significant, it means the association is different at different levels of a factor or different values of a continuous variable. You will need to visually determine how this differs in order to interpret these results.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="interpreting-regression-equations.html#cb83-1"></a>interaction &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(interaction_fit, </span>
-<span id="cb83-2"><a href="interpreting-regression-equations.html#cb83-2"></a>                                    <span class="dt">terms =</span> <span class="kw">c</span>(<span class="st">&quot;neighborhoodgroup&quot;</span>, <span class="st">&quot;total_sf&quot;</span>))</span>
-<span id="cb83-3"><a href="interpreting-regression-equations.html#cb83-3"></a></span>
-<span id="cb83-4"><a href="interpreting-regression-equations.html#cb83-4"></a><span class="kw">plot</span>(interaction)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="interpreting-regression-equations.html#cb81-1"></a>interaction &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(interaction_fit, </span>
+<span id="cb81-2"><a href="interpreting-regression-equations.html#cb81-2"></a>                                    <span class="dt">terms =</span> <span class="kw">c</span>(<span class="st">&quot;neighborhoodgroup&quot;</span>, <span class="st">&quot;total_sf&quot;</span>))</span>
+<span id="cb81-3"><a href="interpreting-regression-equations.html#cb81-3"></a></span>
+<span id="cb81-4"><a href="interpreting-regression-equations.html#cb81-4"></a><span class="kw">plot</span>(interaction)</span></code></pre></div>
 <p><img src="bookclub-ps4ds_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Selecting interaction terms</p>
 <ul>
@@ -413,7 +397,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -454,7 +437,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.7 Generalized Additive Models | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.7 Generalized Additive Models | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-27" />
+<meta name="date" content="2021-09-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,6 +34,7 @@
 <link rel="prev" href="non-linear-regression.html"/>
 <link rel="next" href="meeting-videos-4.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -277,10 +277,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="generalized-additive-models" class="section level2">
 <h2><span class="header-section-number">4.7</span> Generalized Additive Models</h2>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="generalized-additive-models.html#cb99-1"></a>lm_gam &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(total_sf) <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr, </span>
-<span id="cb99-2"><a href="generalized-additive-models.html#cb99-2"></a>                    <span class="dt">data =</span> dat)</span>
-<span id="cb99-3"><a href="generalized-additive-models.html#cb99-3"></a>gam &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(lm_gam, <span class="st">&quot;total_sf&quot;</span>)</span>
-<span id="cb99-4"><a href="generalized-additive-models.html#cb99-4"></a><span class="kw">plot</span>(gam, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="generalized-additive-models.html#cb97-1"></a>lm_gam &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(total_sf) <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr, </span>
+<span id="cb97-2"><a href="generalized-additive-models.html#cb97-2"></a>                    <span class="dt">data =</span> dat)</span>
+<span id="cb97-3"><a href="generalized-additive-models.html#cb97-3"></a>gam &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(lm_gam, <span class="st">&quot;total_sf&quot;</span>)</span>
+<span id="cb97-4"><a href="generalized-additive-models.html#cb97-4"></a><span class="kw">plot</span>(gam, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="bookclub-ps4ds_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 </div>
@@ -294,7 +294,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -335,7 +334,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

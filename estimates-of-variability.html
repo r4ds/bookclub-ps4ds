@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.3 Estimates of Variability | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.3 Estimates of Variability | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-27" />
+<meta name="date" content="2021-09-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,6 +34,7 @@
 <link rel="prev" href="estimates-of-location.html"/>
 <link rel="next" href="histograms-friends.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -317,17 +317,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-2"><a href="estimates-of-variability.html#cb27-2"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">20</span>)</span>
 <span id="cb27-3"><a href="estimates-of-variability.html#cb27-3"></a><span class="kw">quantile</span>(x, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
 <pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
-##   1.0   9.8  20.8  29.7  39.2  46.5  55.0  69.0  82.2  93.0 100.0</code></pre>
+##   2.0  13.0  21.0  27.0  38.0  45.5  55.8  66.3  81.6  96.0 100.0</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="estimates-of-variability.html#cb29-1"></a><span class="kw">quantile</span>(y, <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
-<pre><code>##        0%       10%       20%       30%       40%       50%       60%       70% 
-## -6.459611 28.886440 36.903758 42.473192 49.147306 53.924383 56.884276 61.193484 
-##       80%       90%      100% 
-## 67.268909 73.279145 94.215291</code></pre>
+<pre><code>##         0%        10%        20%        30%        40%        50%        60% 
+##  -1.830337  29.526910  36.006697  40.274329  44.657078  48.180893  54.405362 
+##        70%        80%        90%       100% 
+##  58.980133  65.088256  73.732659 100.371937</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="estimates-of-variability.html#cb31-1"></a><span class="kw">quantile</span>(x) <span class="co"># quartile</span></span></code></pre></div>
-<pre><code>##    0%   25%   50%   75%  100% 
-##   1.0  26.0  46.5  76.0 100.0</code></pre>
+<pre><code>##     0%    25%    50%    75%   100% 
+##   2.00  25.00  45.50  73.25 100.00</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="estimates-of-variability.html#cb33-1"></a><span class="kw">IQR</span>(x) <span class="co"># They introduce this later but I like it here.</span></span></code></pre></div>
-<pre><code>## [1] 50</code></pre>
+<pre><code>## [1] 48.25</code></pre>
 </div>
 </div>
             </section>
@@ -340,7 +340,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -381,7 +380,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

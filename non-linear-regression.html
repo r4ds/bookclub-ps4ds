@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.6 Non-linear Regression | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.6 Non-linear Regression | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-27" />
+<meta name="date" content="2021-09-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,6 +34,7 @@
 <link rel="prev" href="regression-diagnostics.html"/>
 <link rel="next" href="generalized-additive-models.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -281,30 +281,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.6.1</span> Partial Residual Plots and Nonlinearity</h3>
 <p>The linearity plot gives us some indication of a non-linear fit. To dig deeper, we can look at partial residual plots using the {ggeffects} package by Daniel Lüdecke. A partial residual plot represents the residuals of one dependent and one independent variable taking into account the other independent variables.</p>
 <p>Here is a standard scatterplot between Sales Price and Total Square Feet</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="non-linear-regression.html#cb92-1"></a>pr &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(model, <span class="st">&quot;total_sf [all]&quot;</span>)</span>
-<span id="cb92-2"><a href="non-linear-regression.html#cb92-2"></a><span class="kw">plot</span>(pr, <span class="dt">add.data =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="non-linear-regression.html#cb90-1"></a>pr &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(model, <span class="st">&quot;total_sf [all]&quot;</span>)</span>
+<span id="cb90-2"><a href="non-linear-regression.html#cb90-2"></a><span class="kw">plot</span>(pr, <span class="dt">add.data =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="bookclub-ps4ds_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Here we produce a partial residual plot between Sales Price and Total Square Feet (taking into account the other independent variables). The blue line is a local polynomial regression line (loess) for reference. This indicates we may have a non-linear association.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="non-linear-regression.html#cb93-1"></a><span class="kw">plot</span>(pr, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="non-linear-regression.html#cb91-1"></a><span class="kw">plot</span>(pr, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="bookclub-ps4ds_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 <div id="polynomial-and-spline-regression" class="section level3">
 <h3><span class="header-section-number">4.6.2</span> Polynomial and Spline Regression</h3>
 <p>We can create a polynomial variable (predictor squared) and add it into the model. The polynomial model seems to more accurately represent these data.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="non-linear-regression.html#cb95-1"></a>poly_model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(total_sf, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr, </span>
-<span id="cb95-2"><a href="non-linear-regression.html#cb95-2"></a>                 <span class="dt">data =</span> dat)</span>
-<span id="cb95-3"><a href="non-linear-regression.html#cb95-3"></a></span>
-<span id="cb95-4"><a href="non-linear-regression.html#cb95-4"></a>polynomial &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(poly_model, <span class="st">&quot;total_sf&quot;</span>)</span>
-<span id="cb95-5"><a href="non-linear-regression.html#cb95-5"></a><span class="kw">plot</span>(polynomial, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="non-linear-regression.html#cb93-1"></a>poly_model &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(total_sf, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>bath <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr, </span>
+<span id="cb93-2"><a href="non-linear-regression.html#cb93-2"></a>                 <span class="dt">data =</span> dat)</span>
+<span id="cb93-3"><a href="non-linear-regression.html#cb93-3"></a></span>
+<span id="cb93-4"><a href="non-linear-regression.html#cb93-4"></a>polynomial &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(poly_model, <span class="st">&quot;total_sf&quot;</span>)</span>
+<span id="cb93-5"><a href="non-linear-regression.html#cb93-5"></a><span class="kw">plot</span>(polynomial, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="bookclub-ps4ds_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>We can create a spline regression which will divides the dataset into multiple bins, called knots, and creates a separate fit for each bin. The difficult part is determining the correct knots.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="non-linear-regression.html#cb97-1"></a>knots &lt;-<span class="st"> </span><span class="kw">quantile</span>(dat<span class="op">$</span>total_sf, <span class="dt">p =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
-<span id="cb97-2"><a href="non-linear-regression.html#cb97-2"></a>lm_spline &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>splines<span class="op">::</span><span class="kw">bs</span>(total_sf, <span class="dt">knots =</span> knots, <span class="dt">degree =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb97-3"><a href="non-linear-regression.html#cb97-3"></a><span class="st">                  </span>bath <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr, <span class="dt">data =</span> dat)</span>
-<span id="cb97-4"><a href="non-linear-regression.html#cb97-4"></a>spline &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(lm_spline, <span class="st">&quot;total_sf&quot;</span>)</span>
-<span id="cb97-5"><a href="non-linear-regression.html#cb97-5"></a><span class="kw">plot</span>(spline, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="non-linear-regression.html#cb95-1"></a>knots &lt;-<span class="st"> </span><span class="kw">quantile</span>(dat<span class="op">$</span>total_sf, <span class="dt">p =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
+<span id="cb95-2"><a href="non-linear-regression.html#cb95-2"></a>lm_spline &lt;-<span class="st"> </span><span class="kw">lm</span>(Sale_Price <span class="op">~</span><span class="st"> </span>splines<span class="op">::</span><span class="kw">bs</span>(total_sf, <span class="dt">knots =</span> knots, <span class="dt">degree =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb95-3"><a href="non-linear-regression.html#cb95-3"></a><span class="st">                  </span>bath <span class="op">+</span><span class="st"> </span>Lot_Area <span class="op">+</span><span class="st"> </span>Bedroom_AbvGr, <span class="dt">data =</span> dat)</span>
+<span id="cb95-4"><a href="non-linear-regression.html#cb95-4"></a>spline &lt;-<span class="st"> </span>ggeffects<span class="op">::</span><span class="kw">ggpredict</span>(lm_spline, <span class="st">&quot;total_sf&quot;</span>)</span>
+<span id="cb95-5"><a href="non-linear-regression.html#cb95-5"></a><span class="kw">plot</span>(spline, <span class="dt">residuals =</span> <span class="ot">TRUE</span>, <span class="dt">residuals.line =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="bookclub-ps4ds_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 </div>
@@ -319,7 +319,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -360,7 +359,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.3 ROC Curves | Practical Statistics for Data Scientists Book Club</title>
   <meta name="description" content="This is the product of the R4DS Online Learning Community’s Practical Statistics for Data Scientists Book Club." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.3 ROC Curves | Practical Statistics for Data Scientists Book Club" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The R4DS Online Learning Community" />
 
 
-<meta name="date" content="2021-08-27" />
+<meta name="date" content="2021-09-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,6 +34,7 @@
 <link rel="prev" href="evaluating-classification-models.html"/>
 <link rel="next" href="lift.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -282,13 +282,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The book has the <em>x-axis</em> backwards, which is bonkers.</li>
 <li><code>yardstick::roc_curve</code> constructs a tibble of data for the ROC curve, and can be autoplotted to generate the curve.</li>
 </ul>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="roc-curves.html#cb103-1"></a><span class="kw">library</span>(yardstick)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="roc-curves.html#cb101-1"></a><span class="kw">library</span>(yardstick)</span></code></pre></div>
 <pre><code>## For binary classification, the first factor level is assumed to be the event.
 ## Use the argument `event_level = &quot;second&quot;` to alter this as needed.</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="roc-curves.html#cb105-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb105-2"><a href="roc-curves.html#cb105-2"></a></span>
-<span id="cb105-3"><a href="roc-curves.html#cb105-3"></a><span class="kw">data</span>(two_class_example)</span>
-<span id="cb105-4"><a href="roc-curves.html#cb105-4"></a><span class="kw">autoplot</span>(<span class="kw">roc_curve</span>(two_class_example, truth, Class1))</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="roc-curves.html#cb103-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb103-2"><a href="roc-curves.html#cb103-2"></a></span>
+<span id="cb103-3"><a href="roc-curves.html#cb103-3"></a><span class="kw">data</span>(two_class_example)</span>
+<span id="cb103-4"><a href="roc-curves.html#cb103-4"></a><span class="kw">autoplot</span>(<span class="kw">roc_curve</span>(two_class_example, truth, Class1))</span></code></pre></div>
 <p><img src="bookclub-ps4ds_files/figure-html/ROC-curve-3.png" width="672" /></p>
 <ul>
 <li>AUC (<code>yardstick::roc_auc()</code>) = area under the ROC curve.
@@ -307,7 +307,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -348,7 +347,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {
